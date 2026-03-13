@@ -1,0 +1,12 @@
+{
+	"private": true,
+	"scripts": {
+		"dev": "npm --prefix my-portfolio run dev",
+		"build": "npm --prefix my-portfolio run build",
+		"lint": "npm --prefix my-portfolio run lint",
+		"preview": "npm --prefix my-portfolio run preview"
+	},
+	"dependencies": {
+		"lucide-react": "^0.577.0"
+	}
+}

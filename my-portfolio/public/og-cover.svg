@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Zihan Zhang Portfolio cover">
+  <defs>
+    <linearGradient id="bg" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#F5F4F2" />
+      <stop offset="100%" stop-color="#E3EDEF" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <g fill="none" stroke="#171717" stroke-opacity="0.12">
+    <circle cx="160" cy="120" r="180" />
+    <circle cx="1090" cy="560" r="280" />
+  </g>
+  <text x="90" y="250" font-size="58" font-family="Inter, Arial, sans-serif" fill="#171717" font-weight="700">
+    Zihan Zhang
+  </text>
+  <text x="90" y="320" font-size="34" font-family="Inter, Arial, sans-serif" fill="#171717">
+    AI Product Architect Portfolio
+  </text>
+  <text x="90" y="390" font-size="26" font-family="Inter, Arial, sans-serif" fill="#5F5F5F">
+    Product Strategy · UX Research · Measurable Outcomes
+  </text>
+</svg>
