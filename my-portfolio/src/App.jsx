@@ -207,7 +207,7 @@ const ribbonLines = Array.from({ length: 20 }, (_, index) => ({
 const translations = {
   zh: {
     nav: { home: '首页', works: '作品集', resume: '履历', tools: '技能', whyme: 'Why Me', contact: '联系' },
-    hero: { role: 'Product Architect', title1: '理性的构建者，', title2: '感性的叙述者。', desc1: "Hi, I am ", name: "张子涵", desc2: "。", btnWork: '浏览作品集', btnResume: '查看履历' },
+    hero: { role: 'Product Architect', title1: '理性的构建者，', title2: '感性的叙述者。', desc1: "Hi, I'm ", name: "张子涵", desc2: "。", btnWork: '浏览作品集', btnResume: '查看履历' },
     portfolio: {
       title: '作品集。',
       p1_title: 'NutriCALM',
