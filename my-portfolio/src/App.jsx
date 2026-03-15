@@ -229,7 +229,7 @@ const translations = {
       p3_btn1: '项目介绍 (Overview)',
       p3_btn2: '交互演示 (Demo)'
     },
-    impact: { title: '业务影响。', s1: '转化率提升', s2: '海外系统上线', s3: '发言提升率', s4: 'AIED国际会议 (筹)', s5: '高风险识别率', s6: '结算效率提升' },
+    impact: { title: '业务影响。', s1: '转化率提升', s2: '海外系统上线', s3: '发言提升率', s4: 'AIED国际会议', s5: '高风险识别率', s6: '结算效率提升' },
     resume: {
       title: '核心链路。', edu: '学术背景', edu1_title: '计算机科学与技术硕士', edu1_sub: '莫纳什大学 (QS排名 36)', edu1_desc: '主修方向涵盖生成式 AI 应用、数据科学基础、软件工程底层逻辑与云计算架构。', edu1_badge: 'GPA 3.56/4.0 · HD一等荣誉 · Top 5%', edu2_title: '播音与主持艺术本科', edu2_sub: '四川电影电视学院', edu2_badge: 'Top 10% · 校学生会宣传部部长', edu2_desc: '系统化训练沟通同理心与叙事能力，主修内容产品策划、新媒体运营与用户诉求拆解。',
       exp: '关键实践', exp1_title: '海外数字化产品实习生', exp1_sub: '沪上阿姨实业股份有限公司', exp1_details: [
@@ -616,7 +616,7 @@ export default function App() {
       description: t.portfolio.p1_desc, tags: t.portfolio.p1_tags,
       links: [
         { text: t.portfolio.p1_btn1, url: 'https://bjpl8hf23hgg.jp.larksuite.com/docx/XLfideuKAoksQTx7oFojM1BYps7', type: 'doc' },
-        { text: t.portfolio.p1_btn2, url: '#', type: 'demo' }
+        { text: t.portfolio.p1_btn2, url: 'https://hannahzh20.github.io/Nutridemo/', type: 'demo' }
       ],
       image: { src: 'nutri.png', alt: 'NutriCALM' }
     },
