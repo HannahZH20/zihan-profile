@@ -1,0 +1,1445 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura Pro - UI/UX Design Portfolio (Glassmorphism)</title>
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 极简无衬线字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        aura: {
+                            bg: '#F7F5F2',         // 温暖米白背景
+                            ivory: '#F7F5F2',      // 浅色产品 UI 默认底色
+                            surface: '#FFFFFF',    // 纯白表面
+                            charcoal: '#2D2C2A',   // 深灰文字 (替代纯黑)
+                            mutetext: '#8A8884',   // 辅助灰字
+                            accent: '#F26B3A',     // 活力橙色点缀
+                            accentLight: '#FCE7DF',// 浅橙色背景
+                            sage: '#8F9B8C',
+                            hero: '#0E1117',
+                            night: '#11141B',
+                            nightSoft: '#171B24',
+                            nightCard: '#1C212C',
+                            nightText: '#F2EEE8',
+                            nightMuted: '#B6AEA3',
+                            glass: 'rgba(255, 255, 255, 0.65)',
+                            glassBorder: 'rgba(255, 255, 255, 0.8)',
+                            nightLine: 'rgba(255,255,255,0.12)',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Poppins"', '"Noto Sans SC"', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'glass': '0 8px 32px 0 rgba(31, 38, 135, 0.05)',
+                        'hover': '0 20px 40px 0 rgba(242, 107, 58, 0.1)',
+                        'phone': '0 42px 80px -28px rgba(0,0,0,0.75), 0 0 0 1px rgba(255,255,255,0.08)',
+                        'nav': '0 -10px 40px rgba(0,0,0,0.04)',
+                        'btn': '0 8px 20px rgba(242, 107, 58, 0.25)',
+                        'elegant': '0 18px 40px -18px rgba(0,0,0,0.35)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --aura-night-0: #0E1117;
+            --aura-night-1: #121720;
+            --aura-night-2: #171C26;
+            --aura-night-card: rgba(255, 255, 255, 0.05);
+            --aura-night-line: rgba(255, 255, 255, 0.12);
+            --aura-night-text: #F2EEE8;
+            --aura-night-muted: #B6AEA3;
+            --aura-accent: #F26B3A;
+        }
+        body {
+            margin: 0;
+            font-family: 'Poppins', 'Noto Sans SC', sans-serif;
+            background:
+                radial-gradient(1200px 520px at 110% -10%, rgba(242, 107, 58, 0.08), transparent 65%),
+                radial-gradient(900px 420px at -10% 110%, rgba(143, 155, 140, 0.08), transparent 68%),
+                linear-gradient(180deg, #F7F5F2 0%, #F7F5F2 100%);
+            color: var(--aura-night-text);
+            overflow-x: hidden;
+        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* 玻璃拟态基础类 */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+        }
+
+        .glass-panel-dark {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid var(--aura-night-line);
+            box-shadow: 0 16px 42px -24px rgba(0, 0, 0, 0.8);
+        }
+        .card-hover {
+            transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), filter 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-6px);
+            filter: drop-shadow(0 16px 28px rgba(242, 107, 58, 0.12));
+        }
+
+        .case-shell { color: var(--aura-night-text); }
+        .case-section {
+            background: #F7F5F2;
+            border-color: rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+        .case-section-soft {
+            background: #F7F5F2;
+            border-color: rgba(0, 0, 0, 0.05);
+        }
+        .case-hero {
+            background:
+                radial-gradient(800px 420px at 90% 10%, rgba(242, 107, 58, 0.18), transparent 70%),
+                radial-gradient(700px 360px at 10% 90%, rgba(143, 155, 140, 0.14), transparent 72%),
+                linear-gradient(180deg, #0B0E14 0%, #11141C 100%);
+        }
+        .editorial-tag {
+            background: rgba(242, 107, 58, 0.14);
+            border: 1px solid rgba(242, 107, 58, 0.32);
+            color: #FFAE8F;
+        }
+        .editorial-tag-soft {
+            background: rgba(143, 155, 140, 0.14);
+            border: 1px solid rgba(143, 155, 140, 0.32);
+            color: #C9D2C7;
+        }
+        .editorial-card {
+            background: var(--aura-night-card);
+            border: 1px solid var(--aura-night-line);
+            box-shadow: 0 20px 48px -28px rgba(0, 0, 0, 0.85);
+        }
+        .editorial-chip {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #D3CBC1;
+        }
+        .editorial-axis {
+            border-color: rgba(255, 255, 255, 0.28);
+        }
+
+        .phone-frame {
+            position: relative;
+            isolation: isolate;
+        }
+        .phone-frame::before {
+            content: "";
+            position: absolute;
+            inset: 14% 8% 8%;
+            border-radius: 3.2rem;
+            background:
+                radial-gradient(closest-side, rgba(255, 255, 255, 0.18), rgba(242, 107, 58, 0.04) 55%, transparent 85%);
+            filter: blur(30px);
+            z-index: 0;
+            pointer-events: none;
+            transform: scale(0.96);
+        }
+        .phone-shell {
+            background: linear-gradient(160deg, #1A1D26 0%, #10131A 60%, #0C0F15 100%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .phone-shell-light-notch {
+            background: #151922;
+        }
+        .phone-shell-dark-notch {
+            background: #0A0C11;
+        }
+
+        .waveform-bar {
+            width: 3px;
+            border-radius: 999px;
+            background: currentColor;
+            animation: waveform 1.2s ease-in-out infinite;
+        }
+        @keyframes waveform {
+            0%, 100% { transform: scaleY(0.65); opacity: 0.7; }
+            50% { transform: scaleY(1.15); opacity: 1; }
+        }
+
+        /* 动效 */
+        .fade-up { animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(30px); }
+        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+        
+        .breathe { animation: breathe 3s ease-in-out infinite; }
+        @keyframes breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); box-shadow: 0 15px 30px rgba(242,107,58,0.15); } }
+
+        /* 动态折线图动画 */
+        .line-chart-anim {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: drawLine 3s ease-out forwards infinite alternate;
+        }
+        @keyframes drawLine { to { stroke-dashoffset: 0; } }
+        @keyframes scan {
+            0% { transform: translateY(-220px); opacity: 0; }
+            25% { opacity: 1; }
+            50% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(220px); opacity: 0; }
+        }
+
+        /* 表单输入框去边框 */
+        .borderless-input { border: none !important; outline: none !important; background: transparent; }
+        .tab-safe { padding-bottom: 6.5rem; }
+    </style>
+</head>
+<body>
+    <!-- SVG 矢量图标库 (使用 <symbol> 集中定义) -->
+    <svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <symbol id="icon-wifi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"></path><path d="M1.42 9a16 16 0 0 1 21.16 0"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><line x1="12" y1="20" x2="12.01" y2="20"></line></symbol>
+            <symbol id="icon-battery" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="6" width="18" height="12" rx="2" ry="2"></rect><line x1="23" y1="13" x2="23" y2="11"></line></symbol>
+            <symbol id="icon-signal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h.01"></path><path d="M7 20v-4"></path><path d="M12 20v-8"></path><path d="M17 20V8"></path><path d="M22 4v16"></path></symbol>
+            <symbol id="icon-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></symbol>
+            <symbol id="icon-compass" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></symbol>
+            <symbol id="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></symbol>
+            <symbol id="icon-grid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect></symbol>
+            <symbol id="icon-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></symbol>
+            <symbol id="icon-sparkle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"></path></symbol>
+            <symbol id="icon-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></symbol>
+            <symbol id="icon-mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="22"></line></symbol>
+            <symbol id="icon-map-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></symbol>
+            <symbol id="icon-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></symbol>
+            <symbol id="icon-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></symbol>
+            <symbol id="icon-pen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></symbol>
+            <symbol id="icon-arrow-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></symbol>
+            <symbol id="icon-database" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></symbol>
+            <symbol id="icon-brain" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.5 2A2.5 2.5 0 0 0 7 4.5v15a2.5 2.5 0 0 0 4.9 1.25l.1-.5V4.5A2.5 2.5 0 0 0 9.5 2z"></path><path d="M14.5 2A2.5 2.5 0 0 1 17 4.5v15a2.5 2.5 0 0 1-4.9 1.25l-.1-.5V4.5A2.5 2.5 0 0 1 14.5 2z"></path><path d="M2 12h5"></path><path d="M17 12h5"></path></symbol>
+        </defs>
+    </svg>
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+        // --- 通用图标组件 ---
+        const Icon = ({ name, className = "w-5 h-5" }) => (
+            <svg className={className}><use href={`#icon-${name}`} /></svg>
+        );
+
+        const SvgPhoto = ({ src, className = "w-full h-full rounded-2xl" }) => (
+            <svg viewBox="0 0 320 220" className={className} preserveAspectRatio="xMidYMid slice" style={{ overflow: 'hidden' }}>
+                <image href={src} width="320" height="220" preserveAspectRatio="xMidYMid slice" />
+            </svg>
+        );
+
+        // --- 状态栏 ---
+        const StatusBar = ({ isDark = false }) => {
+            const colorClass = isDark ? "text-white drop-shadow-md" : "text-aura-charcoal";
+            return (
+                <div className={`w-full h-12 px-6 flex justify-between items-center z-50 relative shrink-0 text-[13px] font-semibold tracking-wide ${colorClass}`}>
+                    <span>9:41</span>
+                    <div className="flex items-center space-x-1.5">
+                        <Icon name="signal" className="w-3.5 h-3.5" />
+                        <Icon name="wifi" className="w-3.5 h-3.5" />
+                        <Icon name="battery" className="w-5 h-5" />
+                    </div>
+                </div>
+            );
+        };
+
+        // --- 全局底部标签栏 (Glassmorphism Tab Bar) ---
+        const BottomNav = ({ active = 'home' }) => (
+            <div className="absolute bottom-0 w-full h-[88px] glass-panel border-b-0 border-x-0 flex justify-between items-start px-6 pt-3 z-[100] shadow-nav rounded-t-[2.5rem]">
+                <div className={`flex flex-col items-center ${active === 'home' ? 'text-aura-accent' : 'text-aura-mutetext'}`}>
+                    <Icon name="home" className="w-6 h-6 mb-1" />
+                    <span className="text-[9px] font-medium">首页</span>
+                </div>
+                <div className={`flex flex-col items-center ${active === 'explore' ? 'text-aura-accent' : 'text-aura-mutetext'}`}>
+                    <Icon name="compass" className="w-6 h-6 mb-1" />
+                    <span className="text-[9px] font-medium">探索</span>
+                </div>
+                
+                {/* 悬浮发布按钮 */}
+                <div className="relative -top-8 breathe">
+                    <div className="w-14 h-14 bg-aura-accent rounded-full flex items-center justify-center text-white shadow-btn cursor-pointer">
+                        <Icon name="plus" className="w-6 h-6" />
+                    </div>
+                </div>
+                
+                <div className={`flex flex-col items-center ${active === 'gallery' ? 'text-aura-accent' : 'text-aura-mutetext'}`}>
+                    <Icon name="grid" className="w-6 h-6 mb-1" />
+                    <span className="text-[9px] font-medium">画廊</span>
+                </div>
+                <div className={`flex flex-col items-center ${active === 'profile' ? 'text-aura-accent' : 'text-aura-mutetext'}`}>
+                    <Icon name="user" className="w-6 h-6 mb-1" />
+                    <span className="text-[9px] font-medium">我的</span>
+                </div>
+            </div>
+        );
+
+        // --- 手机画板容器 (严格 375x812, 1px 描边) ---
+        const PhoneFrame = ({ children, isDarkDevice = false, label, step }) => {
+            const containerRef = React.useRef(null);
+            const [scale, setScale] = React.useState(1);
+            const screenTheme = isDarkDevice ? 'bg-black text-white' : 'bg-aura-ivory text-aura-charcoal';
+            const notchTheme = isDarkDevice ? 'phone-shell-dark-notch' : 'phone-shell-light-notch';
+
+            React.useLayoutEffect(() => {
+                if (!containerRef.current) return;
+                const node = containerRef.current;
+                const updateScale = () => {
+                    const nextScale = Math.min(node.clientWidth / 375, 1);
+                    setScale(nextScale || 1);
+                };
+
+                updateScale();
+
+                const observer = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(updateScale) : null;
+                if (observer) observer.observe(node);
+                window.addEventListener('resize', updateScale);
+
+                return () => {
+                    if (observer) observer.disconnect();
+                    window.removeEventListener('resize', updateScale);
+                };
+            }, []);
+
+            return (
+                <div ref={containerRef} className="phone-frame flex flex-col items-center w-full max-w-[375px] mx-auto group">
+                    {/* 物理设备边框与阴影 */}
+                    <div className="relative w-full flex justify-center" style={{ height: `${812 * scale}px` }}>
+                        <div
+                            className="phone-shell w-[375px] h-[812px] rounded-[3.2rem] p-2.5 shadow-phone relative flex flex-col z-10 transition-transform duration-500 group-hover:-translate-y-3"
+                            style={{ transform: `scale(${scale})`, transformOrigin: 'top center' }}
+                        >
+                            {/* 刘海 / 灵动岛 */}
+                            <div className={`absolute top-0 left-1/2 -translate-x-1/2 w-[120px] h-7 rounded-b-3xl z-[100] ${notchTheme}`}></div>
+                            {/* 屏幕渲染区域 */}
+                            <div className={`phone-screen flex-1 rounded-[2.8rem] overflow-hidden flex flex-col relative w-full h-full border border-black/10 ${screenTheme}`}>
+                                {children}
+                            </div>
+                        </div>
+                    </div>
+                    {/* 底部步骤说明 */}
+                    <div className="mt-8 text-center w-full px-4 transition-opacity duration-300">
+                        <div className="text-aura-accent font-bold text-[11px] uppercase tracking-widest mb-2 flex items-center justify-center">
+                            <span className="w-1.5 h-1.5 rounded-full bg-aura-accent mr-2"></span>
+                            步骤 {step}
+                        </div>
+                        <p className="text-[15px] font-medium text-aura-charcoal">{label}</p>
+                    </div>
+                </div>
+            );
+        };
+
+        // --- 海报包装器 (4列网格) ---
+        const PosterSection = ({ phase, title, desc, children }) => (
+            <div className="case-section w-full py-32 border-b border-aura-nightLine flex justify-center">
+                <div className="w-full max-w-[1600px] px-4 sm:px-6 lg:px-8">
+                    {/* 标题区 */}
+                    <div className="mb-20 flex flex-col items-start border-l-4 border-aura-accent pl-6 lg:pl-8">
+                        <div className="editorial-tag inline-block text-[12px] font-bold tracking-[0.3em] uppercase mb-4 px-3 py-1 rounded-full">Phase 0{phase}</div>
+                        <h2 className="text-4xl lg:text-5xl font-bold text-aura-charcoal mb-4 tracking-tight">{title}</h2>
+                        <p className="text-aura-mutetext text-base lg:text-lg max-w-3xl leading-relaxed">{desc}</p>
+                    </div>
+                    {/* 核心网格：每行 4 个预览 */}
+                    <div className="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-y-24 gap-x-10 justify-items-center">
+                        {children}
+                    </div>
+                </div>
+            </div>
+        );
+
+        // ==========================================
+        // PM PORTFOLIO CASE STUDY SECTIONS
+        // ==========================================
+
+        const CaseStudy_ProblemAndInsight = () => (
+            <div className="w-full py-32 border-b border-black/5 flex justify-center bg-aura-bg relative overflow-hidden">
+                <div className="w-full max-w-[1600px] px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
+                        {/* 左侧：Problem */}
+                        <div className="lg:col-span-5">
+                            <div className="inline-block text-aura-accent text-[10px] font-bold tracking-[0.3em] uppercase mb-6 bg-aura-accentLight px-3 py-1 rounded-full">01 / 核心问题 (The Problem)</div>
+                            <h2 className="text-4xl lg:text-5xl font-serif text-aura-charcoal mb-6 leading-tight font-bold">收藏从未停止，<br/>学习从未开始。</h2>
+                            <p className="text-aura-mutetext font-medium text-base leading-relaxed mb-8">
+                                在信息过载（Information Overload）的时代，我们的相册充斥着无数的截图、灵感和待办。但这些数据大多是死寂的“像素”，缺乏结构化和关联性。传统软件的高录入阻力和反人性分类，最终让知识管理沦为一种无效的“数字囤积症”。
+                            </p>
+                            <div className="flex flex-col gap-4">
+                                <div className="glass-panel rounded-[2rem] p-6 shadow-sm border border-white">
+                                    <h4 className="text-aura-charcoal font-serif text-xl mb-1 font-bold">高阻力 (High Friction)</h4>
+                                    <p className="text-aura-accent text-[12px] font-bold uppercase tracking-widest mb-3">输入门槛过高</p>
+                                    <p className="text-aura-mutetext text-sm font-medium">"打开App-新建-输入-分类" 的繁琐流程，直接打断了用户瞬间的创意心流。</p>
+                                </div>
+                                <div className="glass-panel rounded-[2rem] p-6 shadow-sm border border-white">
+                                    <h4 className="text-aura-charcoal font-serif text-xl mb-1 font-bold">死像素 (Dead Pixels)</h4>
+                                    <p className="text-aura-accent text-[12px] font-bold uppercase tracking-widest mb-3">数据非结构化</p>
+                                    <p className="text-aura-mutetext text-sm font-medium">存入相册的长截图和参考图无法被检索，也无法与之前的知识产生化学反应。</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* 右侧：User Insight */}
+                        <div className="lg:col-span-7">
+                            <div className="inline-block text-aura-sage text-[10px] font-bold tracking-[0.3em] uppercase mb-6 bg-[#EAE8E3] px-3 py-1 rounded-full">02 / 用户洞察 (User Insight)</div>
+                            <h2 className="text-3xl lg:text-4xl font-serif text-aura-charcoal mb-6 leading-tight font-bold">瞄准“视觉思考者”</h2>
+                            
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                                <div className="bg-white rounded-[2rem] p-6 shadow-glass border border-white relative overflow-hidden">
+                                    <div className="absolute -right-4 -bottom-4 opacity-5 text-aura-accent"><Icon name="pen" className="w-24 h-24" /></div>
+                                    <h4 className="text-aura-charcoal font-bold mb-1 text-lg">创意工作者 (Creative Workers)</h4>
+                                    <p className="text-aura-accent text-[10px] font-bold uppercase tracking-widest mb-4">设计师 / 策划 / 媒体人</p>
+                                    <ul className="text-aura-mutetext text-sm font-medium space-y-2 list-disc pl-4">
+                                        <li>对美感有极高要求</li>
+                                        <li>依赖视觉记忆 (情绪板 Moodboard)</li>
+                                        <li>痛点：图文混排收集极度困难</li>
+                                    </ul>
+                                </div>
+                                <div className="bg-white rounded-[2rem] p-6 shadow-glass border border-white relative overflow-hidden">
+                                    <div className="absolute -right-4 -bottom-4 opacity-5 text-aura-accent"><Icon name="brain" className="w-24 h-24" /></div>
+                                    <h4 className="text-aura-charcoal font-bold mb-1 text-lg">知识探险家 (Knowledge Explorers)</h4>
+                                    <p className="text-aura-accent text-[10px] font-bold uppercase tracking-widest mb-4">终身学习者 / 学生</p>
+                                    <ul className="text-aura-mutetext text-sm font-medium space-y-2 list-disc pl-4">
+                                        <li>患有信息错失恐惧症 (FOMO)</li>
+                                        <li>习惯截图保留干货</li>
+                                        <li>痛点：手机内存常年告急，记了就忘</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            {/* 竞品对比图谱 */}
+                            <div className="glass-panel rounded-[2rem] p-6 shadow-sm border border-white">
+                                <h4 className="text-aura-charcoal text-[12px] font-bold uppercase tracking-widest mb-6">竞品格局分析 (Competitive Landscape)</h4>
+                                <div className="relative h-48 w-full mt-4 pl-8 pb-8">
+                                    <div className="absolute inset-0 left-8 bottom-8 border-l-2 border-b-2 border-gray-300"></div>
+                                    <span className="absolute bottom-2 left-1/2 transform -translate-x-1/2 text-[10px] font-bold text-aura-mutetext">视觉化 / 自动化 (Visual / Automated)</span>
+                                    <span className="absolute top-1/2 left-0 transform -translate-y-1/2 -rotate-90 text-[10px] font-bold text-aura-mutetext whitespace-nowrap origin-left">重度 / 手动化</span>
+                                    
+                                    <div className="absolute bottom-12 left-12 text-aura-mutetext text-xs font-bold bg-white px-2 py-1 rounded shadow-sm">Flomo</div>
+                                    <div className="absolute top-4 left-12 text-aura-mutetext text-xs font-bold bg-white px-2 py-1 rounded shadow-sm">Notion</div>
+                                    <div className="absolute top-4 right-4 text-aura-mutetext text-xs font-bold bg-white px-2 py-1 rounded shadow-sm">Readwise</div>
+                                    
+                                    {/* Aura Position */}
+                                    <div className="absolute bottom-12 right-12 flex flex-col items-center">
+                                        <div className="w-4 h-4 bg-aura-accent rounded-full shadow-btn animate-pulse mb-2"></div>
+                                        <span className="text-aura-accent font-serif font-bold text-lg">Aura Pro</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+
+        const CaseStudy_StrategyAndArch = () => (
+            <div className="w-full py-32 border-b border-black/5 flex justify-center bg-[#EBE9E4]">
+                <div className="w-full max-w-[1600px] px-4 sm:px-6 lg:px-8">
+                    
+                    {/* Strategy Loop */}
+                    <div className="mb-24 text-center">
+                        <div className="inline-block text-[#D4C5B9] text-[10px] font-bold tracking-[0.3em] uppercase mb-4 bg-white px-3 py-1 rounded-full shadow-sm">03 / 产品战略 (Product Strategy)</div>
+                        <h2 className="text-3xl lg:text-4xl font-serif text-aura-charcoal mb-12 font-bold">认知闭环 (The Cognitive Loop)</h2>
+                        
+                        <div className="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-8">
+                            {['捕获 (Capture)', '提纯 (Distill)', '内化 (Internalize)', '聚类 (Cluster)', '唤醒 (Wakeup)', '创造 (Create)'].map((step, idx) => (
+                                <React.Fragment key={idx}>
+                                    <div className="glass-panel border border-white rounded-2xl px-6 py-4 flex flex-col items-center w-32 xl:w-40 shadow-sm">
+                                        <span className="text-aura-accent font-serif italic text-xl mb-1 font-bold">P0{idx+1}</span>
+                                        <span className="text-aura-charcoal font-bold text-[10px] xl:text-[11px] tracking-wider whitespace-nowrap">{step}</span>
+                                    </div>
+                                    {idx < 5 && <div className="text-aura-mutetext hidden md:block"><Icon name="arrow-down" className="w-6 h-6 -rotate-90 md:rotate-0" /></div>}
+                                </React.Fragment>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Architecture */}
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+                        <div className="lg:col-span-4">
+                            <div className="inline-block text-aura-sage text-[10px] font-bold tracking-[0.3em] uppercase mb-4 bg-white px-3 py-1 rounded-full shadow-sm">04 / 系统架构 (System Architecture)</div>
+                            <h2 className="text-3xl lg:text-4xl font-serif text-aura-charcoal mb-6 font-bold">AI 原生基础设施</h2>
+                            <p className="text-aura-mutetext font-medium text-base leading-relaxed mb-6">
+                                Aura 并非传统 CRUD 应用，而是在大语言模型时代重构的 AI-Native 产品。其核心壁垒在于将多模态解析能力深度融合到用户无感知的极简交互中。
+                            </p>
+                            <ul className="space-y-6">
+                                <li className="flex items-start">
+                                    <div className="mt-1 mr-4 w-10 h-10 rounded-full bg-aura-accentLight text-aura-accent flex items-center justify-center shrink-0"><Icon name="sparkle" /></div>
+                                    <div>
+                                        <h5 className="text-aura-charcoal text-base font-bold">多模态 AI 层 (Vision API)</h5>
+                                        <p className="text-aura-mutetext font-medium text-sm mt-1">接入大语言模型与视觉 API，执行精准的 OCR 与图像语义实体提取。</p>
+                                    </div>
+                                </li>
+                                <li className="flex items-start">
+                                    <div className="mt-1 mr-4 w-10 h-10 rounded-full bg-white shadow-sm text-aura-sage flex items-center justify-center shrink-0"><Icon name="database" /></div>
+                                    <div>
+                                        <h5 className="text-aura-charcoal text-base font-bold">向量搜索引擎 (Vector DB)</h5>
+                                        <p className="text-aura-mutetext font-medium text-sm mt-1">摒弃关系型标签，将内容转化为 Embedding 存入向量数据库，实现模糊自然语言搜索。</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        {/* Architectural Diagram (CSS) */}
+                        <div className="lg:col-span-8 bg-white rounded-[3rem] p-8 lg:p-12 shadow-glass border border-white relative flex flex-col justify-between h-[500px]">
+                            {/* Layer 1: UX */}
+                            <div className="w-full glass-panel border border-white rounded-2xl p-6 relative z-20 shadow-sm">
+                                <div className="text-[11px] text-aura-charcoal uppercase tracking-widest mb-4 font-bold flex items-center"><span className="w-2 h-2 bg-aura-charcoal rounded-full mr-2"></span>1. 交互体验层 (Interaction Layer)</div>
+                                <div className="flex flex-col sm:flex-row gap-4">
+                                    <div className="bg-aura-bg px-4 py-3 rounded-xl text-aura-charcoal font-semibold text-sm flex-1 text-center shadow-inner">iOS / Android 客户端</div>
+                                    <div className="bg-aura-bg px-4 py-3 rounded-xl text-aura-charcoal font-semibold text-sm flex-1 text-center shadow-inner">全局剪贴板监听器</div>
+                                </div>
+                            </div>
+                            
+                            {/* Connection Lines */}
+                            <div className="absolute left-1/2 transform -translate-x-1/2 top-[120px] h-[120px] w-1 bg-gradient-to-b from-gray-200 to-aura-sage/50 rounded-full"></div>
+                            
+                            {/* Layer 2: Data */}
+                            <div className="w-[90%] mx-auto bg-[#F2F5F3] border border-white rounded-2xl p-6 relative z-20 shadow-sm mt-4">
+                                <div className="text-[11px] text-aura-sage uppercase tracking-widest mb-4 font-bold flex items-center"><span className="w-2 h-2 bg-aura-sage rounded-full mr-2"></span>2. 数据与逻辑层 (Data & Logic)</div>
+                                <div className="flex flex-col sm:flex-row gap-4">
+                                    <div className="bg-white px-4 py-3 rounded-xl text-aura-sage font-bold text-sm flex-1 text-center shadow-sm">向量数据库 (Vector DB)</div>
+                                    <div className="bg-white px-4 py-3 rounded-xl text-aura-sage font-bold text-sm flex-1 text-center shadow-sm">动态知识图谱</div>
+                                </div>
+                            </div>
+
+                            {/* Connection Lines */}
+                            <div className="absolute left-1/2 transform -translate-x-1/2 bottom-[120px] h-[120px] w-1 bg-gradient-to-b from-aura-sage/50 to-aura-accent/50 rounded-full"></div>
+
+                            {/* Layer 3: AI Base */}
+                            <div className="w-[80%] mx-auto bg-aura-accentLight border border-white rounded-2xl p-6 relative z-20 shadow-sm mt-4">
+                                <div className="text-[11px] text-aura-accent uppercase tracking-widest mb-4 font-bold flex justify-between items-center">
+                                    <span className="flex items-center"><span className="w-2 h-2 bg-aura-accent rounded-full mr-2"></span>3. AI 大模型基座 (Foundation Models)</span>
+                                    <span className="flex space-x-1"><div className="w-1.5 h-1.5 rounded-full bg-aura-accent animate-pulse"></div><div className="w-1.5 h-1.5 rounded-full bg-aura-accent animate-pulse delay-75"></div></span>
+                                </div>
+                                <div className="flex flex-col sm:flex-row gap-4">
+                                    <div className="bg-white px-4 py-3 rounded-xl text-aura-accent font-bold text-sm flex-1 text-center shadow-sm">多模态语义提取 (Vision API)</div>
+                                    <div className="bg-white px-4 py-3 rounded-xl text-aura-accent font-bold text-sm flex-1 text-center shadow-sm">语义向量化 (Embedding)</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+
+        const CaseStudy_ProductImpact = () => (
+            <div className="w-full py-32 border-t border-black/5 bg-aura-bg relative overflow-hidden">
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#FCE7DF] rounded-full blur-[120px] pointer-events-none opacity-50"></div>
+                <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+                    <div className="inline-block text-aura-accent text-[10px] font-bold tracking-[0.3em] uppercase mb-6 bg-white px-4 py-1.5 rounded-full shadow-sm">05 / 业务价值 (Product Impact)</div>
+                    <h2 className="text-4xl lg:text-6xl font-serif text-aura-charcoal mb-16 leading-tight font-bold">重新定义个人知识管理</h2>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div className="bg-white border border-white/50 shadow-glass rounded-[2rem] p-10 transform hover:-translate-y-2 transition-transform duration-300">
+                            <h3 className="text-6xl font-serif text-aura-sage mb-4 font-bold">1.0<span className="text-2xl">s</span></h3>
+                            <p className="text-aura-charcoal font-bold mb-3 text-lg">零阻力捕获 (Zero-Friction)</p>
+                            <p className="text-aura-mutetext text-sm font-medium leading-relaxed">通过底层监听与锁屏录音，将灵感捕获时间压缩至极限，彻底保护用户心流。</p>
+                        </div>
+                        <div className="bg-white border border-white/50 shadow-glass rounded-[2rem] p-10 transform hover:-translate-y-2 transition-transform duration-300">
+                            <h3 className="text-6xl font-serif text-aura-charcoal mb-4 font-bold">100<span className="text-2xl">%</span></h3>
+                            <p className="text-aura-charcoal font-bold mb-3 text-lg">全自动结构化 (Automated)</p>
+                            <p className="text-aura-mutetext text-sm font-medium leading-relaxed">消灭手动标签。AI 自主完成多模态数据的图文分离、情绪板聚类与排版。</p>
+                        </div>
+                        <div className="bg-white border border-white/50 shadow-glass rounded-[2rem] p-10 transform hover:-translate-y-2 transition-transform duration-300">
+                            <h3 className="text-6xl font-serif text-aura-accent mb-4 font-bold">3<span className="text-2xl">x</span></h3>
+                            <p className="text-aura-charcoal font-bold mb-3 text-lg">创意产出率提升 (Output Rate)</p>
+                            <p className="text-aura-mutetext text-sm font-medium leading-relaxed">从存储到白板。借助盲盒唤醒与星系图谱，极大提升碎片化知识转化为系统性产出的概率。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+
+
+        // ==========================================
+        // 核心页面组件 (Screens)
+        // ==========================================
+
+        // --- Phase 1: 极速心流捕获 ---
+        const P1_LockScreen = () => (
+            <div className="flex-1 flex flex-col relative bg-[url('https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=600&auto=format&fit=crop')] bg-cover bg-center">
+                <div className="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
+                <div className="absolute top-20 w-full text-center z-10">
+                    <p className="text-[15px] font-medium text-white/90">10月24日 星期四</p>
+                    <h1 className="text-[80px] font-bold text-white leading-none mt-1 tracking-tighter">09:41</h1>
+                </div>
+                {/* 锁屏录音组件 (玻璃拟态) */}
+                <div className="absolute bottom-20 left-4 right-4 flex flex-col items-center z-20">
+                    <div className="w-full glass-panel rounded-3xl p-6 flex flex-col items-center">
+                        <div className="flex items-center justify-between w-full mb-6">
+                            <span className="w-2 h-2 rounded-full bg-aura-accent animate-ping"></span>
+                            <p className="text-[11px] text-aura-charcoal font-bold tracking-widest uppercase">正在捕捉灵感</p>
+                            <Icon name="mic" className="w-4 h-4 text-aura-accent" />
+                        </div>
+                        {/* 录音波形 */}
+                        <div className="flex items-center space-x-1.5 text-aura-accent mb-6 h-10">
+                            {[1,3,6,8,5,3,7,4,2].map((h, i) => <div key={i} className="waveform-bar" style={{height: `${h*5}px`, animationDelay: `${i*0.1}s`}}></div>)}
+                        </div>
+                        <p className="text-[15px] text-aura-charcoal text-center font-medium">"刚才看到那个极简咖啡馆..."</p>
+                    </div>
+                </div>
+            </div>
+        );
+
+        const P1_WebToast = () => (
+            <div className="flex-1 relative bg-[#F4F4F4]">
+                <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=600&auto=format&fit=crop" className="absolute inset-0 w-full h-full object-cover opacity-80" />
+                <StatusBar />
+                {/* 顶部弹窗 */}
+                <div className="absolute top-14 left-4 right-4 glass-panel rounded-3xl p-4 shadow-glass animate-[fadeUp_0.5s_ease-out]">
+                    <div className="flex items-start space-x-4">
+                        <div className="w-12 h-12 rounded-xl overflow-hidden shrink-0 shadow-sm bg-gray-200">
+                            <img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=100&auto=format&fit=crop" className="w-full h-full object-cover" />
+                        </div>
+                        <div className="flex-1">
+                            <p className="text-[10px] font-bold text-aura-accent uppercase tracking-widest mb-1">Aura 灵动侦听</p>
+                            <p className="text-[13px] font-bold text-aura-charcoal leading-tight mb-3">检测到小红书内容链接</p>
+                            <button className="w-full bg-aura-charcoal text-white rounded-xl py-2.5 text-[12px] font-medium flex items-center justify-center space-x-2 hover:bg-black transition-colors">
+                                <Icon name="sparkle" className="w-3.5 h-3.5" /> <span>一键解析入库</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+
+        const P1_DashboardInbox = () => (
+            <div className="flex-1 flex flex-col bg-aura-bg relative">
+                <StatusBar />
+                <div className="px-6 pt-6 pb-28 flex-1 overflow-y-auto no-scrollbar">
+                    <div className="flex justify-between items-center mb-8">
+                        <div>
+                            <p className="text-[11px] text-aura-mutetext uppercase tracking-widest mb-1">10月24日 星期四</p>
+                            <h1 className="text-3xl font-bold text-aura-charcoal">收件箱</h1>
+                        </div>
+                        <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-white shadow-sm">
+                            <img src="https://i.pravatar.cc/150?img=32" className="w-full h-full object-cover" />
+                        </div>
+                    </div>
+
+                    <div className="space-y-4">
+                        {/* 卡片 1 (无边框玻璃态) */}
+                        <div className="glass-panel rounded-3xl p-4 flex items-center space-x-4">
+                            <div className="w-12 h-12 rounded-2xl bg-aura-accentLight flex items-center justify-center text-aura-accent"><Icon name="mic" className="w-5 h-5"/></div>
+                            <div className="flex-1">
+                                <p className="text-[14px] font-semibold text-aura-charcoal mb-1">极简咖啡馆灵感...</p>
+                                <p className="text-[11px] text-aura-mutetext">语音备忘 • 刚刚</p>
+                            </div>
+                        </div>
+                        {/* 卡片 2 */}
+                        <div className="glass-panel rounded-3xl p-4 flex space-x-4">
+                            <div className="w-16 h-16 rounded-2xl overflow-hidden shrink-0 bg-gray-200">
+                                <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=200&auto=format&fit=crop" className="w-full h-full object-cover" />
+                            </div>
+                            <div className="flex flex-col justify-center">
+                                <div className="text-[9px] bg-aura-charcoal text-white px-2 py-1 rounded-md w-fit mb-2">链接已解析</div>
+                                <p className="text-[14px] font-semibold text-aura-charcoal">高级排版指南</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <BottomNav active="home" />
+            </div>
+        );
+
+        // --- Phase 2: 结构化榨汁机 ---
+        const P2_RawImage = () => (
+            <div className="flex-1 relative bg-[#EBE9E4]">
+                <SvgPhoto src="https://images.unsplash.com/photo-1495521821757-a1efb6729352?q=80&w=1200&auto=format&fit=crop" className="absolute inset-0 w-full h-full" />
+                <StatusBar />
+                <div className="absolute top-14 right-4 glass-panel text-aura-charcoal text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-lg shadow-sm">原始杂乱截图</div>
+                <BottomNav active="home" />
+            </div>
+        );
+
+        const P2_Scanning = () => (
+            <div className="flex-1 relative bg-[#EBE9E4]">
+                <SvgPhoto src="https://images.unsplash.com/photo-1495521821757-a1efb6729352?q=80&w=1200&auto=format&fit=crop" className="absolute inset-0 w-full h-full" />
+                {/* 扫描遮罩 */}
+                <div className="absolute inset-0 bg-white/60 backdrop-blur-lg"></div>
+                <StatusBar />
+                
+                {/* 居中扫描动画 UI */}
+                <div className="absolute inset-0 flex flex-col items-center justify-center px-8 z-10">
+                    <div className="w-20 h-20 bg-white rounded-3xl shadow-glass flex items-center justify-center mb-6 relative">
+                        <div className="absolute inset-0 rounded-3xl border-2 border-aura-accent animate-ping opacity-50"></div>
+                        <Icon name="sparkle" className="w-8 h-8 text-aura-accent animate-pulse" />
+                    </div>
+                    <h2 className="text-2xl font-bold text-aura-charcoal mb-3 tracking-wide">AI 提纯中...</h2>
+                    <div className="bg-white/80 px-4 py-2 rounded-full shadow-sm">
+                        <p className="text-[12px] text-aura-mutetext font-medium">正在提取食材清单与步骤</p>
+                    </div>
+                </div>
+                
+                {/* 扫描线 */}
+                <div className="absolute left-0 w-full h-1 bg-gradient-to-r from-transparent via-aura-accent to-transparent top-1/2 animate-[scan_2s_ease-in-out_infinite]"></div>
+                <BottomNav active="home" />
+            </div>
+        );
+
+        const P2_BentoResult = () => (
+            <div className="flex-1 flex flex-col bg-aura-bg relative">
+                <StatusBar />
+                <div className="px-6 py-6 flex-1 overflow-y-auto no-scrollbar pb-32">
+                    {/* 矢量简图区 (取代杂乱图片) */}
+                    <div className="w-full h-40 rounded-[2rem] overflow-hidden mb-6 bg-white shadow-glass border border-white flex items-center justify-center relative">
+                        {/* 极简番茄炖锅 SVG 插画 */}
+                        <svg viewBox="0 0 300 150" className="w-full h-full opacity-90">
+                            <rect x="40" y="40" width="80" height="80" rx="24" fill="#FCE7DF" />
+                            <circle cx="230" cy="80" r="50" fill="#F7F5F2" />
+                            <g transform="translate(80, 80)">
+                                <circle cx="0" cy="0" r="20" fill="none" stroke="#F26B3A" strokeWidth="3" />
+                                <path d="M -8 -20 Q 0 -30 8 -20" fill="none" stroke="#2D2C2A" strokeWidth="2.5" strokeLinecap="round" />
+                                <path d="M 0 -20 L 0 -26" fill="none" stroke="#2D2C2A" strokeWidth="2.5" strokeLinecap="round" />
+                            </g>
+                            <text x="150" y="86" fontSize="24" fill="#8A8884" textAnchor="middle" fontWeight="300">+</text>
+                            <g transform="translate(230, 80)">
+                                <path d="M -30 10 L 30 10 L 22 30 L -22 30 Z" fill="none" stroke="#2D2C2A" strokeWidth="3" strokeLinejoin="round" />
+                                <path d="M -36 10 L 36 10" stroke="#2D2C2A" strokeWidth="3" strokeLinecap="round" />
+                                <path d="M -24 -2 Q 0 -18 24 -2" fill="none" stroke="#2D2C2A" strokeWidth="3" />
+                                <circle cx="0" cy="-14" r="4" fill="#2D2C2A" />
+                            </g>
+                        </svg>
+                        <div className="absolute top-4 right-4 bg-white/80 backdrop-blur text-aura-charcoal text-[9px] px-2.5 py-1 rounded-lg font-bold uppercase tracking-widest shadow-sm">AI 矢量重绘</div>
+                    </div>
+
+                    <h2 className="text-2xl font-bold text-aura-charcoal leading-tight mb-5">番茄牛腩极简教程</h2>
+                    
+                    {/* To-Do 卡片 */}
+                    <div className="glass-panel rounded-3xl p-5">
+                        <h3 className="text-[11px] uppercase tracking-widest text-aura-accent font-bold mb-4 flex items-center">
+                            <Icon name="sparkle" className="w-3.5 h-3.5 mr-1" /> 结构化步骤
+                        </h3>
+                        <div className="space-y-4">
+                            {['牛腩焯水去血沫', '番茄炒出红油', '加入香叶炖煮 1 小时'].map((item, i) => (
+                                <div key={i} className="flex items-center space-x-3 cursor-pointer group">
+                                    <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${i === 0 ? 'border-aura-accent bg-aura-accentLight' : 'border-gray-300 group-hover:border-aura-accent'}`}>
+                                        {i === 0 && <div className="w-2.5 h-2.5 bg-aura-accent rounded-full"></div>}
+                                    </div>
+                                    <span className={`text-[14px] ${i === 0 ? 'text-aura-mutetext line-through' : 'text-aura-charcoal font-medium'}`}>{item}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+                <BottomNav active="home" />
+            </div>
+        );
+
+        // --- Phase 3: 批注与内化 ---
+        const P3_GalleryGrid = () => (
+            <div className="flex-1 flex flex-col bg-aura-bg relative">
+                <StatusBar />
+                <div className="px-6 pt-4 pb-4 flex justify-between items-center z-20">
+                    <h1 className="text-3xl font-bold text-aura-charcoal">灵感画廊</h1>
+                    <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm"><Icon name="search" className="w-4 h-4" /></div>
+                </div>
+                <div className="flex-1 overflow-y-auto no-scrollbar px-5 pb-32">
+                    {/* 瀑布流网格 */}
+                    <div className="columns-2 gap-4 space-y-4">
+                        <div className="w-full bg-white p-2 rounded-3xl shadow-glass border border-white">
+                            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=300&auto=format&fit=crop" className="w-full rounded-2xl" />
+                            <p className="text-[11px] mt-3 font-semibold px-2 text-aura-charcoal mb-1">极简留白空间</p>
+                        </div>
+                        <div className="w-full bg-aura-accentLight p-2 rounded-3xl shadow-glass border border-white text-center flex flex-col items-center justify-center aspect-square">
+                            <span className="font-serif text-4xl italic text-aura-accent mb-2">Aa</span>
+                            <p className="text-[11px] font-semibold text-aura-accent">字体排印参考</p>
+                        </div>
+                        <div className="w-full bg-white p-2 rounded-3xl shadow-glass border border-white">
+                            <img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?q=80&w=300&auto=format&fit=crop" className="w-full rounded-2xl" />
+                        </div>
+                    </div>
+                </div>
+                <BottomNav active="gallery" />
+            </div>
+        );
+
+        const P3_DrawMode = () => (
+            <div className="flex-1 flex flex-col bg-aura-bg relative">
+                <StatusBar />
+                <div className="px-6 py-4 flex justify-between items-center z-20">
+                    <span className="text-[12px] font-bold text-aura-charcoal uppercase tracking-widest">编辑模式</span>
+                    <span className="bg-aura-charcoal text-white px-4 py-2 rounded-full text-[12px] font-medium shadow-btn">保存</span>
+                </div>
+                
+                <div className="flex-1 relative flex items-center justify-center p-6 bg-white/40">
+                    <div className="bg-white p-3 rounded-[2rem] shadow-glass border border-white w-full relative">
+                        <SvgPhoto src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200&auto=format&fit=crop" className="w-full h-[340px] rounded-2xl opacity-80" />
+                        {/* 模拟马克笔高亮 */}
+                        <div className="absolute top-[35%] left-[20%] w-[45%] h-5 bg-aura-accent/40 mix-blend-multiply transform -rotate-2 rounded"></div>
+                        <div className="absolute top-[42%] left-[40%] w-5 h-5 rounded-full bg-aura-accent/20 animate-ping"></div>
+                    </div>
+                </div>
+                
+                {/* 悬浮工具坞 */}
+                <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 glass-panel h-16 rounded-full px-6 flex items-center justify-center space-x-6 shadow-nav z-[100]">
+                    <div className="w-8 h-8 rounded-full border-2 border-aura-charcoal flex items-center justify-center"><div className="w-5 h-5 rounded-full bg-aura-accent"></div></div>
+                    <div className="w-6 h-6 rounded-full flex items-center justify-center"><div className="w-4 h-4 rounded-full bg-[#D4C5B9]"></div></div>
+                    <div className="w-[1px] h-6 bg-gray-200"></div>
+                    <Icon name="pen" className="w-5 h-5 text-aura-charcoal" />
+                </div>
+                <BottomNav active="gallery" />
+            </div>
+        );
+
+        const P3_AnnotatedCard = () => (
+             <div className="flex-1 flex flex-col bg-aura-bg relative">
+                <StatusBar />
+                <div className="px-6 py-4 flex justify-between items-center z-20">
+                    <span className="text-[12px] font-bold text-aura-charcoal uppercase tracking-widest">沉淀资产</span>
+                    <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm"><Icon name="link" className="w-4 h-4" /></div>
+                </div>
+                
+                <div className="flex-1 relative flex items-start justify-center p-6 pt-10 pb-32 overflow-y-auto no-scrollbar">
+                    <div className="bg-white p-3 rounded-[2rem] shadow-glass border border-white w-full relative">
+                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=600&auto=format&fit=crop" className="w-full h-auto rounded-2xl grayscale opacity-70" />
+                        <div className="absolute top-[35%] left-[20%] w-[45%] h-5 bg-aura-accent/40 mix-blend-multiply transform -rotate-2 rounded"></div>
+                        
+                        {/* 便利贴 UI */}
+                        <div className="absolute -right-4 top-[55%] glass-panel p-4 rounded-2xl shadow-hover w-48 transform rotate-2">
+                            <p className="text-[12px] font-medium text-aura-charcoal leading-relaxed">
+                                "大面积留白与粗糙石材的对比，非常适合做我下周官网排版的 Moodboard 来源。"
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <BottomNav active="gallery" />
+            </div>
+        );
+
+        // --- Phase 4: 模糊搜索与聚类 ---
+        const P4_SearchInput = () => (
+             <div className="flex-1 flex flex-col bg-aura-bg relative">
+                <StatusBar />
+                <div className="px-6 pt-6 flex-1">
+                    {/* 无边框搜索表单 */}
+                    <div className="bg-white rounded-[2rem] px-5 py-4 shadow-glass flex items-center space-x-3 mb-8">
+                        <Icon name="search" className="w-5 h-5 text-aura-accent" />
+                        <div className="w-0.5 h-5 bg-aura-accent animate-pulse"></div>
+                        <p className="text-[14px] text-aura-mutetext font-medium">带落地窗的咖啡馆...</p>
+                    </div>
+                    
+                    <h3 className="text-[11px] font-bold text-aura-charcoal uppercase tracking-widest mb-4">最近自然语言搜索</h3>
+                    <div className="flex gap-3 flex-wrap">
+                        <span className="text-[12px] glass-panel px-4 py-2 rounded-full font-medium">红色背景的网页排版</span>
+                        <span className="text-[12px] glass-panel px-4 py-2 rounded-full font-medium">上个月存的极简建筑</span>
+                    </div>
+                </div>
+                <BottomNav active="explore" />
+            </div>
+        );
+
+        const P4_SearchResults = () => (
+            <div className="flex-1 flex flex-col bg-aura-bg relative">
+                <StatusBar />
+                <div className="px-6 pt-6 pb-32 flex-1 overflow-y-auto no-scrollbar">
+                    <div className="bg-white rounded-[2rem] px-5 py-4 shadow-sm flex items-center space-x-3 mb-8 border border-white">
+                        <Icon name="search" className="w-5 h-5 text-aura-accent" />
+                        <p className="text-[14px] text-aura-charcoal font-bold">带落地窗的咖啡馆</p>
+                    </div>
+                    
+                    <p className="text-[10px] font-bold text-aura-mutetext uppercase tracking-widest mb-4">语义模糊匹配结果</p>
+                    
+                    {/* 搜索结果卡片 */}
+                    <div className="glass-panel rounded-3xl p-3 shadow-sm flex space-x-4 mb-4">
+                        <div className="w-20 h-24 rounded-2xl overflow-hidden shrink-0">
+                            <img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=200&auto=format&fit=crop" className="w-full h-full object-cover" />
+                        </div>
+                        <div className="flex flex-col justify-center">
+                            <div className="text-[9px] bg-aura-accentLight text-aura-accent px-2 py-1 rounded-md font-bold uppercase tracking-wider w-fit mb-2">语义命中</div>
+                            <p className="text-[14px] font-bold text-aura-charcoal leading-tight mb-1.5">南山路探店</p>
+                            <p className="text-[11px] text-aura-mutetext line-clamp-1">"二楼有极大的玻璃墙..."</p>
+                        </div>
+                    </div>
+                </div>
+                <BottomNav active="explore" />
+            </div>
+        );
+
+        const P4_Moodboard = () => (
+             <div className="flex-1 flex flex-col bg-aura-bg relative">
+                <StatusBar />
+                <div className="px-6 pt-6 pb-32 flex-1 overflow-y-auto no-scrollbar">
+                    <div className="flex justify-between items-end mb-6">
+                        <h3 className="text-[12px] font-bold text-aura-charcoal uppercase tracking-widest">智能聚类星系</h3>
+                        <span className="text-[10px] text-aura-accent font-bold bg-aura-accentLight px-2 py-1 rounded-md">AI 提炼</span>
+                    </div>
+                    
+                    <div className="w-full bg-white rounded-[2rem] p-6 shadow-glass border border-white relative overflow-hidden mb-6">
+                        <div className="absolute -top-10 -right-10 w-32 h-32 bg-[#FCE7DF] rounded-full blur-2xl"></div>
+                        <h4 className="text-[22px] font-bold text-aura-charcoal mb-1 relative z-10">极简空间参考</h4>
+                        <p className="text-[10px] text-aura-mutetext uppercase tracking-widest relative z-10 mb-6">包含 12 项视觉资产</p>
+                        
+                        {/* 情绪板堆叠 */}
+                        <div className="flex -space-x-6 relative z-10 justify-center">
+                            <div className="w-20 h-28 rounded-2xl overflow-hidden border-[3px] border-white shadow-md transform -rotate-12"><img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?q=80&w=200&auto=format&fit=crop" className="w-full h-full object-cover grayscale" /></div>
+                            <div className="w-20 h-28 rounded-2xl overflow-hidden border-[3px] border-white shadow-lg z-10"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=200&auto=format&fit=crop" className="w-full h-full object-cover" /></div>
+                            <div className="w-20 h-28 rounded-2xl overflow-hidden border-[3px] border-white shadow-md transform rotate-12 z-20"><img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=200&auto=format&fit=crop" className="w-full h-full object-cover grayscale" /></div>
+                        </div>
+                    </div>
+                    
+                    {/* 自动提取色板 */}
+                    <div className="w-full glass-panel rounded-[2rem] p-6">
+                        <h4 className="text-[14px] font-bold text-aura-charcoal mb-4">主色调特征提取</h4>
+                        <div className="flex gap-3">
+                            <div className="flex-1 h-10 rounded-xl bg-[#EAE8E3] shadow-inner"></div>
+                            <div className="flex-1 h-10 rounded-xl bg-[#8F9B8C] shadow-inner"></div>
+                            <div className="flex-1 h-10 rounded-xl bg-[#2D2C2A] shadow-inner"></div>
+                            <div className="flex-1 h-10 rounded-xl bg-[#F26B3A] shadow-inner"></div>
+                        </div>
+                    </div>
+                </div>
+                <BottomNav active="explore" />
+            </div>
+        );
+
+        // --- Phase 5: 主动唤醒 ---
+        const P5_LBSBackground = () => (
+             <div className="flex-1 bg-aura-bg relative overflow-hidden">
+                {/* 动态折线/地图背景 */}
+                <div className="absolute inset-0 opacity-40">
+                    <svg width="100%" height="100%">
+                        <path d="M-20 150 Q 100 100 150 250 T 375 200" fill="none" stroke="#8A8884" strokeWidth="2" strokeDasharray="4 4" />
+                        <circle cx="150" cy="250" r="6" fill="#F26B3A" />
+                        <circle cx="150" cy="250" r="40" fill="none" stroke="#F26B3A" strokeWidth="1.5" opacity="0.5">
+                            <animate attributeName="r" from="6" to="60" dur="2s" repeatCount="indefinite"/>
+                            <animate attributeName="opacity" from="0.6" to="0" dur="2s" repeatCount="indefinite"/>
+                        </circle>
+                    </svg>
+                </div>
+                <StatusBar />
+                {/* LBS 弹窗 */}
+                <div className="absolute top-24 left-5 right-5 glass-panel rounded-3xl p-5 shadow-hover">
+                    <div className="flex items-center justify-between mb-3">
+                        <div className="bg-aura-accentLight text-aura-accent p-2 rounded-xl"><Icon name="map-pin" className="w-5 h-5" /></div>
+                        <p className="text-[10px] font-bold text-aura-mutetext uppercase tracking-widest">LBS 地理围栏触发</p>
+                    </div>
+                    <h3 className="text-[18px] font-bold text-aura-charcoal leading-tight mb-2">南山路复古咖啡馆</h3>
+                    <p className="text-[12px] text-aura-mutetext mb-5">你在半年前标记过的地点，距离你仅 800 米。</p>
+                    <button className="w-full bg-aura-charcoal text-white rounded-xl py-3 text-[13px] font-bold shadow-btn hover:scale-[1.02] transition-transform">查看打卡笔记</button>
+                </div>
+                <BottomNav active="home" />
+            </div>
+        );
+
+        const P5_EmotionChart = () => (
+             <div className="flex-1 flex flex-col bg-aura-bg relative">
+                <StatusBar />
+                <div className="px-6 py-6 flex-1 overflow-y-auto no-scrollbar pb-32">
+                    <div className="bg-white rounded-[2rem] p-6 shadow-glass border border-white">
+                        <h2 className="text-2xl font-bold mb-1">南山路打卡详情</h2>
+                        <p className="text-[11px] text-aura-mutetext mb-6 font-medium uppercase tracking-wider">Memory Log</p>
+                        <div className="w-full h-40 rounded-2xl overflow-hidden mb-6 bg-gray-100">
+                            <img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=400&auto=format&fit=crop" className="w-full h-full object-cover" />
+                        </div>
+                        
+                        {/* 情绪折线图动效 (还原用户需求：动态折线图 stroke-dasharray 动画) */}
+                        <div className="mb-4">
+                            <h3 className="text-[11px] font-bold text-aura-charcoal uppercase tracking-widest mb-3">情绪波动记录 (Emotion Tracker)</h3>
+                            <svg viewBox="0 0 300 80" className="w-full h-24 overflow-visible">
+                                {/* 网格线 */}
+                                <line x1="0" y1="20" x2="300" y2="20" stroke="#EAE8E3" strokeWidth="1" strokeDasharray="4 4" />
+                                <line x1="0" y1="60" x2="300" y2="60" stroke="#EAE8E3" strokeWidth="1" strokeDasharray="4 4" />
+                                {/* 动画折线 */}
+                                <path className="line-chart-anim" d="M 0 60 Q 40 20 80 40 T 160 30 T 240 70 T 300 10" fill="none" stroke="#F26B3A" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                                {/* 散点 */}
+                                <circle cx="80" cy="40" r="4" fill="#FFFFFF" stroke="#F26B3A" strokeWidth="2" />
+                                <circle cx="160" cy="30" r="4" fill="#FFFFFF" stroke="#F26B3A" strokeWidth="2" />
+                                <circle cx="240" cy="70" r="4" fill="#FFFFFF" stroke="#F26B3A" strokeWidth="2" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <BottomNav active="profile" />
+            </div>
+        );
+
+        const P5_BlindBox = () => (
+             <div className="flex-1 bg-aura-charcoal flex flex-col relative text-white overflow-hidden">
+                <StatusBar isDark={true} />
+                <div className="absolute top-1/3 left-1/2 transform -translate-x-1/2 w-64 h-64 bg-aura-accent/20 rounded-full blur-[80px]"></div>
+                <div className="px-6 pt-20 flex-1 flex flex-col z-10 items-center">
+                    <p className="text-[11px] text-aura-accent font-bold tracking-widest uppercase mb-4">Sunday 9:00 AM</p>
+                    <h2 className="text-3xl font-bold mb-12 text-center">周末灵感盲盒</h2>
+                    
+                    {/* 盲盒卡牌动效 */}
+                    <div className="relative h-64 w-full flex justify-center mt-4">
+                        <div className="absolute w-[70%] h-40 bg-white/5 border border-white/10 rounded-3xl backdrop-blur-sm transform rotate-6 scale-90"></div>
+                        <div className="absolute w-[70%] h-44 bg-white/10 border border-white/10 rounded-3xl backdrop-blur-md transform -rotate-3 scale-95 top-2"></div>
+                        <div className="absolute w-[75%] h-48 glass-panel !bg-white/15 !border-white/20 rounded-3xl flex flex-col items-center justify-center top-4 shadow-hover cursor-pointer hover:-translate-y-4 transition-transform duration-300">
+                            <div className="w-16 h-16 rounded-full bg-aura-accent flex items-center justify-center mb-4 shadow-btn"><Icon name="sparkle" className="w-8 h-8 text-white" /></div>
+                            <span className="text-[15px] font-bold tracking-wider">点击开启记忆</span>
+                        </div>
+                    </div>
+                </div>
+                <BottomNav active="profile" />
+            </div>
+        );
+
+        // --- Phase 6: 星系与输出 ---
+        const P6_GalaxyView = () => (
+            <div className="flex-1 flex flex-col bg-aura-charcoal relative overflow-hidden text-white">
+                <StatusBar isDark={true} />
+                <div className="px-6 pt-4 flex justify-between items-center z-20">
+                    <span className="text-[12px] font-bold text-white/80 uppercase tracking-widest">知识星系</span>
+                    <Icon name="search" className="w-5 h-5 text-white/80" />
+                </div>
+                <div className="flex-1 relative bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-90 pb-32 cursor-grab">
+                    {/* 节点连线 */}
+                    <svg className="absolute inset-0 w-full h-full pointer-events-none">
+                        <path d="M 80,120 C 120,150 160,250 180,300" fill="none" stroke="#F26B3A" strokeWidth="1.5" strokeDasharray="4 4" className="line-chart-anim"/>
+                        <path d="M 180,300 C 220,380 280,250 280,180" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="1.5"/>
+                    </svg>
+
+                    <div className="absolute top-[80px] left-[40px] flex flex-col items-center">
+                        <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-white/20 shadow-lg mb-2 grayscale hover:grayscale-0 transition-all">
+                             <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=150&auto=format&fit=crop" className="w-full h-full object-cover"/>
+                        </div>
+                        <span className="text-[9px] bg-white/20 backdrop-blur px-2 py-1 rounded-md font-medium">极简空间</span>
+                    </div>
+
+                    <div className="absolute top-[280px] left-[140px] flex flex-col items-center z-10 breathe">
+                        <div className="w-24 h-24 rounded-full bg-aura-accent text-white flex items-center justify-center shadow-btn mb-2">
+                            <span className="text-[16px] font-bold text-center leading-tight">情绪化<br/>UI</span>
+                        </div>
+                        <span className="text-[10px] font-bold text-aura-accent uppercase tracking-widest text-center bg-white/10 px-2.5 py-1 rounded-md backdrop-blur">核心锚点</span>
+                    </div>
+
+                    <div className="absolute top-[140px] right-[20px] w-28 glass-panel !bg-white/10 !border-white/20 p-3 rounded-2xl transform rotate-3">
+                        <Icon name="mic" className="w-4 h-4 text-aura-accent mb-2" />
+                        <p className="text-[10px] text-white/90 italic leading-snug">"UI 不仅是工具，更是情绪容器。"</p>
+                    </div>
+                </div>
+                <BottomNav active="explore" />
+            </div>
+        );
+
+        const P6_DraftCanvas = () => (
+            <div className="flex-1 flex flex-col bg-aura-bg relative">
+                <StatusBar />
+                <div className="px-6 pt-4 pb-4 flex justify-between items-center z-20">
+                    <span className="text-[12px] font-bold text-aura-charcoal uppercase tracking-widest">草稿白板</span>
+                    <span className="bg-aura-charcoal text-white px-4 py-2 rounded-full text-[11px] font-bold shadow-sm">导出发布</span>
+                </div>
+                <div className="flex-1 px-6 py-4 overflow-y-auto no-scrollbar pb-32">
+                    <input type="text" value="UI 作为情绪的容器" className="w-full text-2xl font-bold text-aura-charcoal mb-6 borderless-input placeholder-gray-400" readOnly />
+                    
+                    <div className="mb-6">
+                        <h4 className="text-[10px] font-bold uppercase text-aura-accent tracking-widest mb-2 flex items-center"><div className="w-1.5 h-1.5 bg-aura-accent rounded-full mr-2"></div>Intro (引言)</h4>
+                        <p className="text-[13px] text-aura-charcoal leading-relaxed font-medium">现代应用不应只是信息的堆砌，而应提供类似于物理空间的心理包裹感...</p>
+                    </div>
+
+                    {/* 拖入的灵感块 */}
+                    <div className="bg-white p-3 rounded-2xl shadow-glass border border-white mb-6 flex space-x-3 transform -rotate-1 relative hover:rotate-0 transition-transform">
+                        <div className="absolute -left-2 top-1/2 -translate-y-1/2 w-4 h-4 bg-aura-bg border-2 border-white rounded-full flex items-center justify-center shadow-sm"><div className="w-1.5 h-1.5 bg-aura-accent rounded-full"></div></div>
+                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=150&auto=format&fit=crop" className="w-14 h-14 rounded-xl object-cover grayscale opacity-80" />
+                        <div className="flex flex-col justify-center">
+                            <p className="text-[9px] text-aura-mutetext font-bold uppercase tracking-widest mb-1">拖拽引入的参考</p>
+                            <p className="text-[11px] text-aura-charcoal font-medium italic">"参考这种空间的大面积留白。"</p>
+                        </div>
+                    </div>
+                    
+                    <div className="flex items-center space-x-1">
+                        <p className="text-[13px] text-aura-charcoal font-medium">在实际的界面设计中</p>
+                        <div className="w-0.5 h-4 bg-aura-accent animate-pulse"></div>
+                    </div>
+                </div>
+                
+                {/* 底部悬浮素材坞 */}
+                <div className="absolute bottom-[90px] w-11/12 left-1/2 transform -translate-x-1/2 glass-panel h-16 rounded-[1.5rem] flex items-center px-4 space-x-3 z-50">
+                    <div className="w-10 h-10 bg-aura-bg rounded-xl flex items-center justify-center text-aura-accent shrink-0"><Icon name="grid" className="w-5 h-5"/></div>
+                    <div className="w-10 h-10 bg-gray-200 rounded-xl shrink-0 overflow-hidden"><img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=100&auto=format&fit=crop" className="w-full h-full object-cover" /></div>
+                    <div className="w-10 h-10 bg-gray-200 rounded-xl shrink-0 opacity-50"></div>
+                </div>
+                <BottomNav active="profile" />
+            </div>
+        );
+
+        const P6_Export = () => (
+             <div className="flex-1 flex flex-col bg-aura-bg relative items-center justify-center">
+                <StatusBar />
+                <div className="w-4/5 glass-panel p-6 rounded-3xl shadow-elegant border border-white text-center">
+                    <div className="w-14 h-14 bg-aura-accent rounded-full flex items-center justify-center mx-auto mb-4 shadow-btn"><Icon name="sparkle" className="w-6 h-6 text-white"/></div>
+                    <h2 className="font-serif text-2xl mb-2 text-aura-charcoal font-bold">草稿已保存</h2>
+                    <p className="text-[12px] text-aura-mutetext mb-6">文章已同步至 Notion / 剪藏</p>
+                    <button className="bg-aura-charcoal text-white px-6 py-3 rounded-full text-[12px] font-medium shadow-btn w-full">查看成果</button>
+                </div>
+                <BottomNav active="profile" />
+            </div>
+        );
+
+        // --- Added screens for 24-board flow ---
+        const P1_Splash = () => (
+            <div className="flex-1 flex flex-col relative overflow-hidden bg-[#151922] text-white">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(242,107,58,0.22),transparent_35%),radial-gradient(circle_at_bottom_left,rgba(143,155,140,0.18),transparent_40%)]"></div>
+                <StatusBar isDark={true} />
+                <div className="flex-1 px-7 pb-10 flex flex-col justify-between relative z-10">
+                    <div className="pt-8">
+                        <div className="glass-panel-dark inline-flex items-center px-4 py-2 rounded-full text-[11px] uppercase tracking-[0.3em] text-aura-accent font-bold mb-8">
+                            <i className="fa-solid fa-wand-magic-sparkles mr-2"></i> Launch
+                        </div>
+                        <h1 className="text-5xl font-bold tracking-tight mb-3">Aura Pro</h1>
+                        <p className="text-white/65 leading-relaxed">把屏幕里的死像素，重组为一套会主动与你对话的灵感系统。</p>
+                    </div>
+                    <div className="relative h-[280px] flex items-center justify-center">
+                        <svg viewBox="0 0 320 320" className="w-[280px] h-[280px]">
+                            <defs>
+                                <linearGradient id="orb-light" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stopColor="#FFF1E8" />
+                                    <stop offset="100%" stopColor="#F26B3A" stopOpacity="0.45" />
+                                </linearGradient>
+                            </defs>
+                            <circle cx="160" cy="160" r="104" fill="url(#orb-light)" opacity="0.85" />
+                            <circle cx="160" cy="160" r="132" fill="none" stroke="rgba(255,255,255,0.18)" strokeWidth="1.5" strokeDasharray="8 10" />
+                            <circle cx="160" cy="160" r="66" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="1.6" />
+                            <path d="M 72 178 C 118 108 190 102 248 144" fill="none" stroke="rgba(255,255,255,0.55)" strokeWidth="1.6" />
+                            <circle cx="228" cy="134" r="9" fill="#fff6ef" />
+                        </svg>
+                        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[88%] glass-panel-dark rounded-[1.8rem] p-4">
+                            <div className="flex items-center justify-between mb-2">
+                                <span className="text-[11px] uppercase tracking-[0.28em] text-aura-accent font-bold">AI Thought Processor</span>
+                                <Icon name="sparkle" className="w-4 h-4 text-aura-accent" />
+                            </div>
+                            <p className="text-sm text-white/72 leading-relaxed">从截图、语音到地点记忆，统一进入一条极简认知流。</p>
+                        </div>
+                    </div>
+                    <div className="space-y-3">
+                        <button className="w-full rounded-[1.4rem] bg-white text-aura-charcoal py-4 text-sm font-semibold">开始构建我的系统</button>
+                        <button className="w-full rounded-[1.4rem] glass-panel-dark py-4 text-sm font-medium text-white/80">查看产品导览</button>
+                    </div>
+                </div>
+            </div>
+        );
+
+        const P1_GoalIntro = () => (
+            <div className="flex-1 flex flex-col bg-aura-bg relative">
+                <StatusBar />
+                <div className="flex-1 px-6 pt-6 pb-8 overflow-y-auto no-scrollbar">
+                    <div className="mb-8">
+                        <p className="text-[11px] uppercase tracking-[0.3em] text-aura-accent font-bold mb-3">Goal Setup</p>
+                        <h2 className="text-3xl font-bold text-aura-charcoal mb-3">你希望 Aura 优先强化什么？</h2>
+                        <p className="text-aura-mutetext text-sm leading-relaxed">目标流程不展示底部 Tab Bar。先定义目标，再决定后续的收集、聚类和召回优先级。</p>
+                    </div>
+                    <div className="space-y-4">
+                        {[
+                            ['高频灵感收藏', '把截图和链接先快速收入收件箱。', 'fa-solid fa-camera-retro'],
+                            ['项目研究归档', '按主题和风格自动形成聚类。', 'fa-solid fa-diagram-project'],
+                            ['周末主动复习', '在特定时间和地点唤醒记忆。', 'fa-solid fa-bullseye']
+                        ].map(([title, text, icon], idx) => (
+                            <div key={title} className={`glass-panel rounded-[1.8rem] p-5 card-hover ${idx === 0 ? 'ring-2 ring-aura-accent/30' : ''}`}>
+                                <div className="flex items-start justify-between mb-3">
+                                    <div className="w-12 h-12 rounded-2xl bg-aura-accentLight text-aura-accent flex items-center justify-center text-lg"><i className={icon}></i></div>
+                                    <div className={`w-5 h-5 rounded-full border flex items-center justify-center ${idx === 0 ? 'border-aura-accent bg-aura-accentLight' : 'border-aura-line'}`}>
+                                        {idx === 0 && <div className="w-2 h-2 rounded-full bg-aura-accent"></div>}
+                                    </div>
+                                </div>
+                                <div className="text-aura-charcoal text-lg font-semibold mb-2">{title}</div>
+                                <p className="text-aura-mutetext text-sm leading-relaxed">{text}</p>
+                            </div>
+                        ))}
+                    </div>
+                    <button className="w-full mt-8 rounded-[1.4rem] bg-aura-charcoal text-white py-4 text-sm font-semibold shadow-btn">继续设定目标</button>
+                </div>
+            </div>
+        );
+
+        const P1_GoalFocus = () => (
+            <div className="flex-1 flex flex-col bg-aura-bg relative">
+                <StatusBar />
+                <div className="flex-1 px-6 pt-6 pb-8 overflow-y-auto no-scrollbar">
+                    <div className="flex items-start justify-between mb-7">
+                        <div>
+                            <p className="text-[11px] uppercase tracking-[0.3em] text-aura-sage font-bold mb-3">Focus Calibration</p>
+                            <h2 className="text-3xl font-bold text-aura-charcoal">本周目标强度</h2>
+                        </div>
+                        <div className="glass-panel rounded-full px-4 py-2 text-[11px] font-semibold text-aura-accent">Week 01</div>
+                    </div>
+                    <div className="glass-panel rounded-[2rem] p-5 mb-5">
+                        <div className="flex items-center justify-center relative h-[220px]">
+                            <svg viewBox="0 0 220 220" className="w-[220px] h-[220px]">
+                                <circle cx="110" cy="110" r="82" fill="none" stroke="#eadfd5" strokeWidth="16" />
+                                <circle cx="110" cy="110" r="82" fill="none" stroke="#F26B3A" strokeWidth="16" strokeLinecap="round" strokeDasharray="392 520" transform="rotate(-90 110 110)" />
+                                <circle cx="110" cy="110" r="50" fill="#FFF6EF" />
+                                <text x="110" y="102" textAnchor="middle" fontSize="16" fill="#8A8884">灵感目标</text>
+                                <text x="110" y="128" textAnchor="middle" fontSize="34" fontWeight="700" fill="#2D2C2A">18</text>
+                            </svg>
+                        </div>
+                        <div className="grid grid-cols-3 gap-3 text-center mt-2">
+                            {[
+                                ['截图', '08'],
+                                ['语音', '06'],
+                                ['地点', '04']
+                            ].map(([label, count]) => (
+                                <div key={label} className="rounded-[1.2rem] bg-white/70 py-3">
+                                    <div className="text-[10px] uppercase tracking-[0.22em] text-aura-mutetext mb-1">{label}</div>
+                                    <div className="text-aura-charcoal text-lg font-semibold">{count}</div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                    <div className="glass-panel rounded-[1.8rem] p-5">
+                        <div className="text-[11px] uppercase tracking-[0.3em] text-aura-accent font-bold mb-3">提醒策略</div>
+                        <div className="space-y-3 text-sm text-aura-charcoal">
+                            <div className="flex items-center justify-between"><span>周末 9:00 打开盲盒复习</span><i className="fa-solid fa-toggle-on text-aura-accent text-xl"></i></div>
+                            <div className="flex items-center justify-between"><span>靠近收藏地点时自动触发召回</span><i className="fa-solid fa-toggle-on text-aura-accent text-xl"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+
+        const P2_QuickCapture = () => (
+            <div className="flex-1 flex flex-col bg-aura-bg relative overflow-hidden">
+                <StatusBar />
+                <div className="flex-1 relative pb-[88px]">
+                    <SvgPhoto src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=1200&auto=format&fit=crop" className="w-full h-full" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/20"></div>
+                    <div className="absolute top-14 left-4 right-4 glass-panel rounded-[1.8rem] p-4 shadow-glass card-hover">
+                        <div className="flex items-start space-x-4">
+                            <div className="w-12 h-12 rounded-2xl bg-aura-accent text-white flex items-center justify-center"><i className="fa-solid fa-link"></i></div>
+                            <div className="flex-1">
+                                <p className="text-[10px] font-bold text-aura-accent uppercase tracking-widest mb-1">Smart Capture</p>
+                                <p className="text-[13px] font-bold text-aura-charcoal leading-tight mb-3">检测到新链接与截图，可一键静默入库</p>
+                                <button className="w-full bg-aura-charcoal text-white rounded-xl py-2.5 text-[12px] font-medium flex items-center justify-center space-x-2">
+                                    <Icon name="sparkle" className="w-3.5 h-3.5" /> <span>一键解析入库</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <BottomNav active="home" />
+            </div>
+        );
+
+        const P3_DetailView = () => (
+            <div className="flex-1 flex flex-col bg-aura-bg relative">
+                <StatusBar />
+                <div className="flex-1 overflow-y-auto no-scrollbar px-6 pt-4 tab-safe">
+                    <div className="flex items-center justify-between mb-4">
+                        <div className="glass-panel rounded-full px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.28em] text-aura-accent">Detail View</div>
+                        <div className="flex space-x-2 text-aura-mutetext">
+                            <div className="w-10 h-10 rounded-full glass-panel flex items-center justify-center"><Icon name="pen" className="w-4 h-4" /></div>
+                            <div className="w-10 h-10 rounded-full glass-panel flex items-center justify-center"><Icon name="link" className="w-4 h-4" /></div>
+                        </div>
+                    </div>
+                    <div className="glass-panel rounded-[2rem] p-3 mb-5 card-hover">
+                        <SvgPhoto src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200&auto=format&fit=crop" className="w-full h-[300px] rounded-[1.5rem]" />
+                    </div>
+                    <div className="glass-panel rounded-[1.8rem] p-5">
+                        <div className="text-aura-charcoal text-xl font-semibold mb-2">极简空间的包裹感</div>
+                        <div className="flex flex-wrap gap-2 mb-4 text-[11px]">
+                            {['留白', '石材', '自然光', '低饱和'].map((item) => <span key={item} className="px-3 py-1.5 rounded-full bg-white/70 text-aura-mutetext uppercase tracking-[0.2em]">{item}</span>)}
+                        </div>
+                        <p className="text-sm text-aura-mutetext leading-relaxed">大面积留白与低对比材质，非常适合延伸到官网 Hero 和移动端概览卡片。</p>
+                    </div>
+                </div>
+                <BottomNav active="gallery" />
+            </div>
+        );
+
+        const P4_ColorPalette = () => (
+            <div className="flex-1 flex flex-col bg-aura-bg relative">
+                <StatusBar />
+                <div className="px-6 pt-6 flex-1 tab-safe overflow-y-auto no-scrollbar">
+                    <div className="text-[11px] font-bold text-aura-charcoal uppercase tracking-widest mb-3">Style Tokens</div>
+                    <div className="glass-panel rounded-[2rem] p-5 mb-5 card-hover">
+                        <div className="text-aura-charcoal text-lg font-semibold mb-4">自动提取的色板</div>
+                        <div className="grid grid-cols-4 gap-3 mb-4">
+                            {['#F7F5F2', '#D4C5B9', '#8F9B8C', '#2D2C2A'].map((color) => (
+                                <div key={color} className="space-y-2">
+                                    <div className="h-16 rounded-xl" style={{ backgroundColor: color }}></div>
+                                    <div className="text-[10px] text-center text-aura-mutetext uppercase tracking-[0.2em]">{color}</div>
+                                </div>
+                            ))}
+                        </div>
+                        <div className="rounded-[1.4rem] bg-white/70 p-4">
+                            <div className="text-[11px] uppercase tracking-[0.28em] text-aura-accent font-bold mb-2">Typography</div>
+                            <div className="text-aura-charcoal text-xl font-semibold mb-1">Poppins / Noto Sans SC</div>
+                            <div className="text-sm text-aura-mutetext">适合玻璃拟态卡片和大标题摘要场景。</div>
+                        </div>
+                    </div>
+                </div>
+                <BottomNav active="explore" />
+            </div>
+        );
+
+        const P5_BlindBoxOpened = () => (
+            <div className="flex-1 bg-aura-charcoal flex flex-col relative text-white overflow-hidden">
+                <StatusBar isDark={true} />
+                <div className="px-6 pt-12 flex-1 flex flex-col z-10 tab-safe">
+                    <p className="text-[11px] text-aura-accent font-bold tracking-widest uppercase mb-4">Memory Unlocked</p>
+                    <div className="glass-panel-dark rounded-[2rem] p-5 card-hover">
+                        <div className="inline-flex items-center px-3 py-1 rounded-full bg-white/8 text-[10px] uppercase tracking-[0.25em] text-white/65 mb-4">3 个月前收藏</div>
+                        <h3 className="text-2xl font-bold mb-3">排版四大基本原则</h3>
+                        <p className="text-sm text-white/60 leading-relaxed mb-5">对比、对齐、重复、亲密性。这张卡片曾被你标记为“年终总结结构灵感”。</p>
+                        <div className="flex gap-3">
+                            <button className="flex-1 bg-white text-aura-charcoal py-3 rounded-xl text-[12px] font-semibold">进入复习</button>
+                            <button className="flex-1 bg-white/8 border border-white/10 py-3 rounded-xl text-[12px] font-medium">加入白板</button>
+                        </div>
+                    </div>
+                </div>
+                <BottomNav active="profile" />
+            </div>
+        );
+
+        const P5_MemoryDetail = () => (
+            <div className="flex-1 flex flex-col bg-aura-bg relative">
+                <StatusBar />
+                <div className="px-6 py-6 flex-1 overflow-y-auto no-scrollbar tab-safe">
+                    <div className="bg-white rounded-[2rem] p-6 shadow-glass border border-white card-hover">
+                        <h2 className="text-2xl font-bold mb-1">南山路打卡详情</h2>
+                        <p className="text-[11px] text-aura-mutetext mb-6 font-medium uppercase tracking-wider">Memory Log</p>
+                        <div className="w-full h-40 rounded-2xl overflow-hidden mb-6 bg-gray-100">
+                            <SvgPhoto src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=1000&auto=format&fit=crop" className="w-full h-full rounded-2xl" />
+                        </div>
+                        <div className="mb-4">
+                            <h3 className="text-[11px] font-bold text-aura-charcoal uppercase tracking-widest mb-3">情绪波动记录 (Emotion Tracker)</h3>
+                            <svg viewBox="0 0 300 80" className="w-full h-24 overflow-visible">
+                                <line x1="0" y1="20" x2="300" y2="20" stroke="#EAE8E3" strokeWidth="1" strokeDasharray="4 4" />
+                                <line x1="0" y1="60" x2="300" y2="60" stroke="#EAE8E3" strokeWidth="1" strokeDasharray="4 4" />
+                                <path className="line-chart-anim" d="M 0 60 Q 40 20 80 40 T 160 30 T 240 70 T 300 10" fill="none" stroke="#F26B3A" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                                <circle cx="80" cy="40" r="4" fill="#FFFFFF" stroke="#F26B3A" strokeWidth="2" />
+                                <circle cx="160" cy="30" r="4" fill="#FFFFFF" stroke="#F26B3A" strokeWidth="2" />
+                                <circle cx="240" cy="70" r="4" fill="#FFFFFF" stroke="#F26B3A" strokeWidth="2" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <BottomNav active="profile" />
+            </div>
+        );
+
+        const P6_NodeDetail = () => (
+            <div className="flex-1 flex flex-col bg-aura-charcoal relative overflow-hidden text-white">
+                <StatusBar isDark={true} />
+                <div className="absolute inset-0 bg-white/5 backdrop-blur-[2px]"></div>
+                <div className="flex-1 flex items-center justify-center px-6 pb-[88px] relative z-10">
+                    <div className="glass-panel-dark rounded-[2rem] p-6 w-full card-hover">
+                        <div className="text-[10px] uppercase tracking-[0.3em] text-aura-accent font-bold mb-3">Node Focus</div>
+                        <h2 className="text-2xl font-bold mb-2">情绪化 UI</h2>
+                        <p className="text-sm text-white/60 leading-relaxed mb-5">已连接 3 个空间参考、2 条语音速记和 1 组配色 token。</p>
+                        <div className="space-y-3 mb-5">
+                            {['极简留白空间', '暖灰石材调性', '品牌首页转场节奏'].map((item) => (
+                                <div key={item} className="rounded-[1.2rem] bg-white/6 border border-white/10 px-4 py-3 text-sm text-white/82">{item}</div>
+                            ))}
+                        </div>
+                        <button className="w-full rounded-[1.2rem] bg-white text-aura-charcoal py-3 text-sm font-semibold">拖入草稿白板</button>
+                    </div>
+                </div>
+                <BottomNav active="explore" />
+            </div>
+        );
+
+
+        // ==========================================
+        // MAIN APP RENDER
+        // ==========================================
+        const App = () => {
+            return (
+                <div className="w-full font-sans selection:bg-aura-accent selection:text-white">
+                    
+                    {/* Hero Section (亮色高级版) */}
+                    <div className="min-h-screen flex flex-col items-center justify-center text-center px-6 relative overflow-hidden bg-aura-bg">
+                        {/* 极简玻璃光斑背景 */}
+                        <div className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-[#F26B3A] opacity-[0.04] rounded-full blur-[120px] pointer-events-none"></div>
+                        <div className="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] bg-[#8F9B8C] opacity-[0.05] rounded-full blur-[100px] pointer-events-none"></div>
+                        
+                        <div className="relative z-10 fade-up max-w-4xl">
+                            <div className="inline-flex items-center space-x-2 bg-white/60 backdrop-blur-lg border border-white px-5 py-2 rounded-full mb-10 shadow-glass">
+                                <Icon name="sparkle" className="w-4 h-4 text-aura-accent" /> <span className="text-aura-charcoal text-[11px] font-bold tracking-[0.2em] uppercase">Glassmorphism UI Portfolio</span>
+                            </div>
+                            <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold text-aura-charcoal mb-8 tracking-tighter">Aura <span className="text-aura-accent">Pro</span></h1>
+                            <p className="text-2xl md:text-4xl text-aura-charcoal font-medium mb-10">
+                                从死像素，到鲜活的灵感星系。
+                            </p>
+                            <p className="text-aura-mutetext text-sm md:text-base lg:text-lg font-medium leading-relaxed mb-16 max-w-2xl mx-auto">
+                                一款基于多模态大模型重构的认知处理器。<br/>全景展示从输入、解析、沉淀到创造的极简闭环设计。
+                            </p>
+                            <div className="animate-bounce text-aura-accent flex flex-col items-center">
+                                <span className="text-[10px] uppercase tracking-widest mb-3 font-bold">向下滚动查看作品集</span>
+                                <Icon name="arrow-down" className="w-5 h-5" />
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Case Study Additions */}
+                    <CaseStudy_ProblemAndInsight />
+                    <CaseStudy_StrategyAndArch />
+
+                    {/* All Poster Sections */}
+                    <PosterSection phase="1" title="启动与目标设定 (Onboarding)" desc="启动页与目标设定流程不显示底部 Tab Bar；进入首页后，用户正式进入统一的玻璃拟态导航体系。">
+                        <PhoneFrame isDarkDevice={true} step="1" label="启动页"><P1_Splash /></PhoneFrame>
+                        <PhoneFrame isDarkDevice={false} step="2" label="目标方向选择"><P1_GoalIntro /></PhoneFrame>
+                        <PhoneFrame isDarkDevice={false} step="3" label="目标强度设定"><P1_GoalFocus /></PhoneFrame>
+                        <PhoneFrame isDarkDevice={false} step="4" label="首页收件箱"><P1_DashboardInbox /></PhoneFrame>
+                    </PosterSection>
+
+                    <PosterSection phase="2" title="极速捕获与 AI 提纯 (Zero-Friction + Distill)" desc="记录灵感的最大敌人是打断心流。Aura 将系统级侦听、原始素材承接和 AI 提纯压缩进同一条 1 秒级认知流。">
+                        <PhoneFrame isDarkDevice={false} step="1" label="智能采集提示"><P2_QuickCapture /></PhoneFrame>
+                        <PhoneFrame isDarkDevice={false} step="2" label="原始素材承接"><P2_RawImage /></PhoneFrame>
+                        <PhoneFrame isDarkDevice={false} step="3" label="多模态解析动效"><P2_Scanning /></PhoneFrame>
+                        <PhoneFrame isDarkDevice={false} step="4" label="Bento 提纯资产"><P2_BentoResult /></PhoneFrame>
+                    </PosterSection>
+
+                    <PosterSection phase="3" title="批注与内化 (Make It Yours)" desc="别人的干货只有加上你自己的批注，才能变成你的知识。极简画廊模式帮你留下思考痕迹。">
+                        <PhoneFrame isDarkDevice={false} step="1" label="瀑布流画廊"><P3_GalleryGrid /></PhoneFrame>
+                        <PhoneFrame isDarkDevice={false} step="2" label="沉浸详情页"><P3_DetailView /></PhoneFrame>
+                        <PhoneFrame isDarkDevice={false} step="3" label="极简涂鸦编辑"><P3_DrawMode /></PhoneFrame>
+                        <PhoneFrame isDarkDevice={false} step="4" label="旁注便利贴生成"><P3_AnnotatedCard /></PhoneFrame>
+                    </PosterSection>
+
+                    <PosterSection phase="4" title="模糊搜索与聚类 (Semantic Web)" desc="人脑的记忆是模糊的。抛弃反人类的层级文件夹，让 AI 根据多模态语义自动为你织网。">
+                        <PhoneFrame isDarkDevice={false} step="1" label="自然语言检索框"><P4_SearchInput /></PhoneFrame>
+                        <PhoneFrame isDarkDevice={false} step="2" label="语义模糊匹配"><P4_SearchResults /></PhoneFrame>
+                        <PhoneFrame isDarkDevice={false} step="3" label="情绪板自动聚类"><P4_Moodboard /></PhoneFrame>
+                        <PhoneFrame isDarkDevice={false} step="4" label="色板与排版提取"><P4_ColorPalette /></PhoneFrame>
+                    </PosterSection>
+
+                    <PosterSection phase="5" title="主动场景唤醒 (Serendipity)" desc="网盘是被动的，大脑是主动的。基于地理位置和动态折线图分析，将吃灰的知识点重新投递给你。">
+                        <PhoneFrame isDarkDevice={false} step="1" label="LBS 围栏触发"><P5_LBSBackground /></PhoneFrame>
+                        <PhoneFrame isDarkDevice={false} step="2" label="情绪折线图分析"><P5_MemoryDetail /></PhoneFrame>
+                        <PhoneFrame isDarkDevice={true} step="3" label="周末扑克牌盲盒"><P5_BlindBox /></PhoneFrame>
+                        <PhoneFrame isDarkDevice={true} step="4" label="盲盒开启结果"><P5_BlindBoxOpened /></PhoneFrame>
+                    </PosterSection>
+
+                    <PosterSection phase="6" title="辅助输出与创造 (Constellation)" desc="大脑是用来思考的。提供星系图谱与双屏玻璃拟态白板，直接拖拽碎片拼凑成完整的策划案。">
+                        <PhoneFrame isDarkDevice={true} step="1" label="暗黑系星系总览"><P6_GalaxyView /></PhoneFrame>
+                        <PhoneFrame isDarkDevice={true} step="2" label="节点聚焦详情"><P6_NodeDetail /></PhoneFrame>
+                        <PhoneFrame isDarkDevice={false} step="3" label="悬浮拖拽写作"><P6_DraftCanvas /></PhoneFrame>
+                        <PhoneFrame isDarkDevice={false} step="4" label="成品导出分发"><P6_Export /></PhoneFrame>
+                    </PosterSection>
+
+                    {/* Impact & Conclusion Additions */}
+                    <CaseStudy_ProductImpact />
+
+                    {/* Footer */}
+                    <div className="pt-32 pb-24 text-center bg-aura-bg border-t border-black/5">
+                        <div className="w-16 h-16 rounded-full bg-white shadow-glass flex items-center justify-center mx-auto mb-8 text-aura-accent"><Icon name="sparkle" className="w-8 h-8" /></div>
+                        <h2 className="text-4xl font-bold text-aura-charcoal mb-6">准备好构建未来了吗？</h2>
+                        <p className="text-[11px] text-aura-mutetext uppercase tracking-widest font-bold">© 2024 Aura Pro UI/UX Design by AI PM</p>
+                    </div>
+
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
