@@ -605,8 +605,8 @@ export default function App() {
       icon: <Sparkles className="w-4 h-4 text-[var(--text-main)]" />,
       description: t.portfolio.p3_desc, tags: t.portfolio.p3_tags,
       links: [
-        { text: t.portfolio.p3_btn1, url: 'https://hannahzh20.github.io/aurapro-demo/', type: 'doc' },
-        { text: t.portfolio.p3_btn2, url: 'https://hannahzh20.github.io/aurapro-demo/', type: 'demo' }
+        { text: t.portfolio.p3_btn1, url: 'https://aurademo.zihan.fun/', type: 'doc' },
+        { text: t.portfolio.p3_btn2, url: 'https://aurademo.zihan.fun/', type: 'demo' }
       ],
       image: { src: 'aurapro.png', alt: 'Aura Pro' } 
     },
@@ -616,7 +616,7 @@ export default function App() {
       description: t.portfolio.p1_desc, tags: t.portfolio.p1_tags,
       links: [
         { text: t.portfolio.p1_btn1, url: 'https://bjpl8hf23hgg.jp.larksuite.com/docx/XLfideuKAoksQTx7oFojM1BYps7', type: 'doc' },
-        { text: t.portfolio.p1_btn2, url: 'https://hannahzh20.github.io/Nutridemo/', type: 'demo' }
+        { text: t.portfolio.p1_btn2, url: 'https://nutridemo.zihan.fun/', type: 'demo' }
       ],
       image: { src: 'nutri.png', alt: 'NutriCALM' }
     },
@@ -626,7 +626,7 @@ export default function App() {
       description: t.portfolio.p2_desc, tags: t.portfolio.p2_tags,
       links: [
         { text: t.portfolio.p2_btn1, url: 'https://bjpl8hf23hgg.jp.larksuite.com/wiki/TbkxwwGNkiDUFjkcppRj3JZFpBg?from=from_copylink', type: 'doc' },
-        { text: t.portfolio.p2_btn2, url: 'https://hannahzh20.github.io/ProDAIS-demo/', type: 'demo' }
+        { text: t.portfolio.p2_btn2, url: 'https://prodaisdemo.zihan.fun/', type: 'demo' }
       ],
       image: { src: 'prodais.png', alt: 'ProDAIS' }
     }
