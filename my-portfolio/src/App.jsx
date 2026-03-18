@@ -717,8 +717,8 @@ export default function App() {
       icon: <Sparkles className="w-4 h-4 text-[var(--text-main)]" />,
       description: t.portfolio.p3_desc, tags: t.portfolio.p3_tags,
       links: [
-        { text: t.portfolio.p3_btn1, url: 'https://hannahzh20.github.io/aurapro-demo/', type: 'doc' },
-        { text: t.portfolio.p3_btn2, url: 'https://hannahzh20.github.io/aurapro-demo/', type: 'demo' }
+        { text: t.portfolio.p3_btn1, url: 'https://aurademo.zihan.fun/', type: 'doc' },
+        { text: t.portfolio.p3_btn2, url: 'https://aurademo.zihan.fun/', type: 'demo' }
       ],
       image: { src: 'aurapro.png', alt: 'Aura Pro' } 
     },
@@ -727,20 +727,7 @@ export default function App() {
       icon: <Activity className="w-4 h-4 text-[var(--text-main)]" />,
       description: t.portfolio.p1_desc, tags: t.portfolio.p1_tags,
       links: [
-        { 
-          text: t.portfolio.p1_btn1, 
-          type: 'doc-menu',
-          menuItems: [
-            {
-              text: lang === 'zh' ? '用户研究（PDF）' : 'User Research (PDF)',
-              url: encodeURI('./NutriCALM 用户研究与需求分析报告.pdf')
-            },
-            {
-              text: lang === 'zh' ? 'PRD 文档（PDF）' : 'PRD Document (PDF)',
-              url: encodeURI('./NutriCALM B2B2C健康系统PRD文档 .pdf')
-            }
-          ]
-        },
+        { text: t.portfolio.p1_btn1, url: 'https://bjpl8hf23hgg.jp.larksuite.com/docx/XLfideuKAoksQTx7oFojM1BYps7', type: 'doc' },
         { text: t.portfolio.p1_btn2, url: 'https://hannahzh20.github.io/Nutridemo/', type: 'demo' }
       ],
       image: { src: 'nutri.png', alt: 'NutriCALM' }
@@ -750,7 +737,7 @@ export default function App() {
       icon: <Users className="w-4 h-4 text-[var(--text-main)]" />,
       description: t.portfolio.p2_desc, tags: t.portfolio.p2_tags,
       links: [
-        { text: t.portfolio.p2_btn1, url: encodeURI('./ProDAIS - 详细功能需求文档 (PRD) .pdf'), type: 'doc' },
+        { text: t.portfolio.p2_btn1, url: 'https://bjpl8hf23hgg.jp.larksuite.com/wiki/TbkxwwGNkiDUFjkcppRj3JZFpBg?from=from_copylink', type: 'doc' },
         { text: t.portfolio.p2_btn2, url: 'https://hannahzh20.github.io/ProDAIS-demo/', type: 'demo' }
       ],
       image: { src: 'prodais.png', alt: 'ProDAIS' }
