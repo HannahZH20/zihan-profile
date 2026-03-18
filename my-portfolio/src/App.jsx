@@ -233,25 +233,46 @@ const translations = {
     resume: {
       title: '核心链路。', edu: '学术背景', edu1_title: '计算机科学与技术硕士', edu1_sub: '莫纳什大学 (QS排名 36)', edu1_desc: '主修方向涵盖生成式 AI 应用、数据科学基础、软件工程底层逻辑与云计算架构。', edu1_badge: 'GPA 3.56/4.0 · HD一等荣誉 · Top 5%', edu2_title: '播音与主持艺术本科', edu2_sub: '四川电影电视学院', edu2_badge: 'Top 10% · 校学生会宣传部部长', edu2_desc: '系统化训练沟通同理心与叙事能力，主修内容产品策划、新媒体运营与用户诉求拆解。',
       exp: '关键实践', exp1_title: '海外数字化产品实习生', exp1_sub: '沪上阿姨实业股份有限公司', exp1_details: [
-  "围绕“订单→支付→结算”核心业务链路开展需求分析，抽象83项字段字典与47条异常码映射，推动多国家、多平台规则统一。",
-  "访谈海外业务、供应商与门店运营团队，拆解形成多国规则统一、跨团队协同、Go-Live机制标准化等五大核心产品场景，并输出完整规划方案。",
-  "对接熊猫外卖、Grab等5+海外平台，支持8+国家系统上线，保障6家新店按期开业、12家门店稳定运行，单系统交付周期缩短3–5天。",
+  "围绕“订单→支付→结算”核心链路开展需求分析，抽象多国业务规则，完成83项字段映射与47类异常处理设计，推动多国家系统规则统一。",
+  "访谈海外运营、供应商与门店团队，拆解形成多国适配、跨平台对接、Go-Live机制等5类核心产品场景，并输出完整解决方案。",
+  "对接熊猫外卖、Grab等5+海外平台，完成系统联调与UAT验证，支持8+国家上线，保障6家新店开业与12家门店稳定运行。",
   "设计Go-Live检查清单与P0/P1/P2问题分级机制，将上线故障率控制在0.5%以下，对账准确率提升至90%，结算效率提升35%。"
 ],
       exp2_title: 'AI产品助理（兼职）', exp2_sub: '莫纳什人机交互中心（Action Lab）', exp2_details: [
-  "参与规划B2B2C三层产品架构（C端用户层、中台AI能力层、B端专家层），输出完整PRD与交互原型，推动跨团队需求对齐。",
-  "主导AI饮食录入、个性化餐单、3D趋势追踪与专家社区等核心功能设计，通过多模态输入将单次记录时间压缩至3秒以内，识别精度达到98%+。",
-  "结合RAG与多智能体策略优化个性化推荐逻辑，并同步设计XSS防护、数据脱敏与终端优先存储等隐私方案。",
-  "最终推动B端营养师服务效率提升3–5倍，平台核心功能使用率达到78%，周活跃率提升45%，用户转化率达到18%。"
+  "参与规划B2B2C三层产品架构（用户层 / AI能力层 / 专家层），输出PRD与交互原型，推动AI能力产品化落地。",
+  "主导AI饮食识别、个性化推荐、3D趋势追踪与专家社区等核心功能设计，将单次记录时间压缩至3秒以内，识别精度达98%+。",
+  "基于RAG与多智能体策略优化推荐逻辑，提升个性化匹配效果，同时设计XSS防护与数据脱敏方案保障系统安全。",
+  "优化用户“触达→激活→留存→转化”链路，使核心功能使用率达78%，周活跃提升45%，转化率达18%。"
 ],
-      exp3_title: '数据分析实习生', exp3_sub: '山东鲁泰热电有限公司', exp3_details: ["基于 Python 与 3σ 原则挖掘 10万+ 运行数据，精准拦截 4 次核心设备运行异常。","设计自动化数据监控看板，推动报表业务效率每周提升 3-5 小时。"],
+      exp3_title: '数据分析实习生', exp3_sub: '山东鲁泰热电有限公司', exp3_details: [
+  "清洗10万+生产数据，统一30+核心指标口径（能耗/负荷/设备状态），构建标准化数据体系，解决数据割裂问题。",
+  "基于Python（Pandas）搭建自动化数据看板，替代人工周报流程，显著提升数据获取效率与使用频率。",
+  "结合时间序列与3σ方法构建设备异常识别模型，提前发现并定位4次关键异常。",
+  "每周节省3-5小时人工处理时间，降低潜在生产风险，支撑调度与决策优化。"
+],
+      exp4_title: '产品运营实习生', exp4_sub: '任城区融媒体中心', exp4_details: [
+  "基于用户反馈与播放数据，优化3档栏目内容结构与选题策略，推动平均播放量提升25%。",
+  "搭建内容数据监测体系（阅读量 / 完播率 / 停留时长），建立复盘机制，驱动内容持续迭代优化。",
+  "统筹多平台内容发布节奏，完成25+期内容运营与复盘，提升传播稳定性与覆盖效率。",
+  "停留时长提升23%，完播率提升18%，互动率提升20%+。"
+],
       proj: '核心项目', 
-      proj1_title: '课堂协作智能引导系统 (ProDAIS)', 
-      proj1_sub: '核心角色：用户研究与 AI 产品设计', 
-      proj1_desc: '针对课堂讨论中“少数人主导、沉默成员参与不足、议程偏离”等问题，基于25+用户访谈与6轮课堂观察定义MVP方向，设计5个核心AI模块，包括阶段总结、沉默成员提醒、议程节奏提示、行动项生成与头脑风暴建议。系统在4个真实课堂、80+学生中稳定运行，沉默成员发言率提升166%，偏题率下降32%，SUS可用性评分达到78。', 
-      proj2_title: '学生行为早期预警系统 (Learning Analytics)', 
-      proj2_sub: '核心角色：数据产品 / 解决方案设计', 
-      proj2_desc: '基于OULAD约12万+行为日志完成数据清洗、特征工程与20+风险指标设计，对比Random Forest与XGBoost等模型效果，构建高解释性风险预测方案，并设计“预警→诊断→干预”的闭环产品流程，实现高风险学生识别准确率与覆盖率85%+，可提前3–4周识别潜在流失风险。'},
+      proj1_title: 'AI课堂协作引导系统（ProDAIS）', 
+      proj1_sub: '用户研究 / AI产品设计 · 2024.12 – 2026.02', 
+      proj1_desc: [
+        "基于25+用户访谈与6轮课堂观察，识别“沉默成员参与不足”与“讨论节奏失控”为核心问题，确定“低干预AI引导”产品方向，并输出完整PRD与触发机制设计。",
+        "基于LLM + 实时语音转写（STT）设计阶段总结、沉默提醒、议程控制、行动项生成与头脑风暴等5个核心AI模块，通过Prompt策略与冷却机制控制干预频率。",
+        "针对语音延迟与噪声带来的误触发问题，推进3轮产品迭代，优化语义过滤与触发逻辑，提升系统稳定性与准确性。",
+        "在4个真实课堂（80+学生）中落地验证，沉默成员发言率提升166%+，讨论偏题率下降32%，系统SUS可用性评分达78。"
+      ], 
+      proj2_title: '学生行为早期预警系统（Learning Analytics）', 
+      proj2_sub: '数据产品 / 解决方案设计 · 2024.07 – 2024.12', 
+      proj2_desc: [
+        "基于OULAD数据集（12万+行为日志）完成数据清洗与特征工程，构建覆盖活跃度、作业行为与学习节奏等维度的20+风险指标体系。",
+        "对比Random Forest与XGBoost等模型，构建高解释性风险预测模型，并设计风险评分卡与可视化界面，提升教师决策效率。",
+        "围绕模型输出设计“预警→诊断→干预”闭环，针对不同风险等级制定差异化干预策略（提醒/学习计划调整/人工辅导）。",
+        "模型回测显示高风险识别准确率达85%+，较基线提升约15%，可提前3–4周识别潜在流失学生。"
+      ]},
     tools: { title: '复合架构能力。', subtitle: 'Technical Proficiency' },
     whyme: { 
       tag: '02 / Perspective',
@@ -325,36 +346,56 @@ const translations = {
     exp1_title: 'Global Digital Product Intern',
     exp1_sub: 'Auntea Jenny (Shanghai) Co., Ltd.',
     exp1_details: [
-      "Conducted product requirement analysis around the core 'Order → Payment → Settlement' workflow, abstracting 83 data dictionary fields and 47 error-code mappings to unify business rules across countries and platforms.",
-      "Interviewed overseas business teams, suppliers, and store operators to define five core product scenarios, including cross-country rule alignment, cross-team collaboration, and Go-Live standardization, translating them into a structured roadmap.",
-      "Coordinated with 5+ overseas platforms such as HungryPanda and Grab, supporting launches across 8+ countries, ensuring 6 new stores opened on schedule and 12 stores ran stably, shortening delivery cycles by 3–5 days.",
-      "Designed a Go-Live checklist and P0/P1/P2 issue classification mechanism, reducing launch failures to below 0.5%, improving reconciliation accuracy to 90%, and increasing settlement efficiency by 35%."
+      "Conducted requirement analysis across the core 'Order → Payment → Settlement' flow, abstracted cross-country business rules, and completed mapping for 83 fields and 47 exception-handling categories to unify rules across multiple country systems.",
+      "Interviewed overseas operations, suppliers, and store teams; distilled five core product scenarios including multi-country adaptation, cross-platform integration, and Go-Live mechanisms, then delivered end-to-end solutions.",
+      "Coordinated with 5+ overseas platforms such as HungryPanda and Grab, completed system integration and UAT, supported launches in 8+ countries, and ensured stable operations for 6 new stores and 12 stores.",
+      "Designed a Go-Live checklist and P0/P1/P2 issue triage mechanism, keeping launch incident rate below 0.5%, improving reconciliation accuracy to 90%, and increasing settlement efficiency by 35%."
     ],
 
     exp2_title: 'AI Product Assistant (Part-time)',
     exp2_sub: 'Monash Human-Computer Interaction Centre (Action Lab)',
     exp2_details: [
-      "Participated in planning a three-layer B2B2C product architecture covering end users, an AI capability middle layer, and expert-facing services, producing full PRDs and interaction prototypes to align cross-functional teams.",
-      "Led the design of core functions including AI dietary logging, personalized meal plans, 3D progress tracking, and expert communities. Multimodal input reduced logging time to under 3 seconds with 98%+ recognition accuracy.",
-      "Applied RAG and multi-agent strategies to improve recommendation quality, while designing privacy and security mechanisms such as XSS protection, data desensitization, and device-first storage.",
-      "Ultimately improved dietitian service efficiency by 3–5x, raised core feature usage to 78%, increased weekly active usage by 45%, and achieved an 18% conversion rate."
+      "Participated in planning a B2B2C three-layer architecture (user layer / AI capability layer / expert layer), produced PRDs and interaction prototypes, and drove productization of AI capabilities.",
+      "Led design of core features including AI diet recognition, personalized recommendations, 3D trend tracking, and expert community functions; reduced single logging time to under 3 seconds with 98%+ recognition accuracy.",
+      "Optimized recommendation logic with RAG and multi-agent strategies to improve personalization, while designing XSS protection and data desensitization schemes to safeguard system security.",
+      "Optimized the user funnel from reach → activation → retention → conversion, achieving 78% core feature usage, 45% weekly active growth, and an 18% conversion rate."
     ],
 
     exp3_title: 'Data Analyst Intern',
     exp3_sub: 'Shandong Lutai Thermal Power Co.',
     exp3_details: [
-      "Analyzed 100k+ operational records using Python and the 3σ principle, accurately identifying 4 critical equipment anomalies.",
-      "Designed automated data monitoring dashboards, improving reporting efficiency by 3–5 hours per week."
+      "Cleaned 100k+ production records and unified definitions for 30+ core indicators (energy consumption / load / equipment status), building a standardized data system to eliminate data silos.",
+      "Built automated dashboards using Python (Pandas), replacing manual weekly reporting and significantly improving data access efficiency and usage frequency.",
+      "Developed an equipment anomaly detection model using time-series methods and 3σ, proactively identifying and locating 4 critical anomalies.",
+      "Saved 3–5 hours of manual processing per week, reduced potential production risk, and supported dispatch and decision optimization."
+    ],
+    exp4_title: 'Product Operations Intern',
+    exp4_sub: 'Rencheng District Integrated Media Center',
+    exp4_details: [
+      "Optimized the content structure and topic strategy of three programs based on user feedback and playback data, driving a 25% increase in average views.",
+      "Built a content performance monitoring framework (reads / completion rate / dwell time) and established a review loop to support continuous optimization.",
+      "Coordinated multi-platform publishing cadence and delivered operations plus retrospective analysis for 25+ episodes, improving distribution stability and reach efficiency.",
+      "Improved dwell time by 23%, completion rate by 18%, and engagement rate by 20%+."
     ],
 
     proj: 'RESEARCH & PROJECTS',
-    proj1_title: 'AI Classroom Facilitation System (ProDAIS)',
-    proj1_sub: 'Core Role: User Research & AI Product Design',
-    proj1_desc: 'Defined the MVP direction through 25+ user interviews and 6 rounds of classroom observation. Designed five core AI modules including stage summarization, silent-member prompting, agenda pacing, and brainstorming support. Deployed in 4 real classrooms with 80+ students, the system increased silent-member participation by 166%, reduced off-topic drift by 32%, and achieved an SUS usability score of 78.',
+    proj1_title: 'AI Classroom Collaboration Guidance System (ProDAIS)',
+    proj1_sub: 'User Research / AI Product Design · 2024.12 – 2026.02',
+    proj1_desc: [
+      "Based on 25+ user interviews and 6 rounds of classroom observation, identified “insufficient silent-member participation” and “loss of discussion pacing” as core problems, defined a low-intervention AI guidance direction, and delivered a full PRD plus trigger-mechanism design.",
+      "Designed five core AI modules with LLM + real-time speech-to-text (STT): stage summary, silent-member nudges, agenda control, action-item generation, and brainstorming; controlled intervention frequency via prompt strategy and cooldown logic.",
+      "Drove three product iterations to address false triggers caused by speech latency and noise, optimizing semantic filtering and trigger logic to improve system stability and accuracy.",
+      "Validated in 4 real classrooms (80+ students), increasing silent-member speaking rate by 166%+, reducing off-topic discussion by 32%, and achieving an SUS usability score of 78."
+    ],
 
     proj2_title: 'Student Early Warning System (Learning Analytics)',
-    proj2_sub: 'Core Role: Data Product & Solution Design',
-    proj2_desc: 'Built a highly interpretable risk prediction solution based on 120k+ OULAD behavior logs, executing data cleaning, feature engineering, and 20+ risk indicators. Compared models such as Random Forest and XGBoost, designing a closed-loop workflow of “Alert → Diagnose → Intervene,” achieving 85%+ accuracy for high-risk student identification and detecting dropout risks 3–4 weeks earlier.'
+    proj2_sub: 'Data Product / Solution Design · 2024.07 – 2024.12',
+    proj2_desc: [
+      "Completed data cleaning and feature engineering on the OULAD dataset (120k+ behavior logs), building a 20+ indicator risk framework covering engagement, assignment behavior, and learning pace.",
+      "Compared models including Random Forest and XGBoost to build a highly interpretable risk prediction model, and designed a risk scorecard with a visualization interface to improve instructor decision efficiency.",
+      "Designed a closed-loop workflow of “Alert → Diagnose → Intervene” around model outputs, with differentiated intervention strategies for each risk level (reminders / study-plan adjustments / human tutoring).",
+      "Backtesting showed 85%+ accuracy in high-risk identification, about 15% improvement over baseline, and enabled detection of potential dropout students 3–4 weeks earlier."
+    ]
   },
   tools: { title: 'Comprehensive Architectural Skills.', subtitle: 'Technical Proficiency' },
   whyme: { 
@@ -539,6 +580,56 @@ const TimelineItem = ({ time, title, subtitle, details, defaultOpen = false, isL
   </div>
 );
 
+const ResumeProjectCard = ({ tag, title, subtitle, description, defaultOpen = false }) => {
+  const [isOpen, setIsOpen] = useState(defaultOpen);
+  const panelId = useId();
+  const details = useMemo(() => {
+    if (Array.isArray(description)) return description;
+    if (typeof description !== 'string') return [];
+    return description
+      .split('\n')
+      .map((line) => line.replace(/^•\s*/, '').trim())
+      .filter(Boolean);
+  }, [description]);
+
+  return (
+    <div className="p-6 rounded-xl border border-[var(--border-line)] bg-[var(--bg-section-gray)] hover:bg-[var(--bg-section-white)] transition-colors flex flex-col h-full w-full">
+      <div className="font-mono text-[10px] text-[var(--text-muted)] mb-3 tracking-widest uppercase">{tag}</div>
+      <button
+        type="button"
+        className="w-full text-left flex items-start gap-3 focus-ring rounded-lg"
+        onClick={() => details.length > 0 && setIsOpen(!isOpen)}
+        aria-expanded={details.length > 0 ? isOpen : undefined}
+        aria-controls={details.length > 0 ? panelId : undefined}
+      >
+        <div className="flex-1 min-w-0">
+          <h4 className="text-[14px] font-bold text-[var(--text-main)] mb-1 tracking-tight">{title}</h4>
+          <p className="text-[12px] font-medium text-[var(--accent)]">{subtitle}</p>
+        </div>
+        {details.length > 0 && (
+          <div className={`p-1 rounded-full mt-0.5 flex-shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180 text-[var(--accent)]' : 'text-[var(--text-muted)]'}`}>
+            <ChevronDown size={15} />
+          </div>
+        )}
+      </button>
+      {details.length > 0 && (
+        <div id={panelId} className={`overflow-hidden transition-all duration-300 w-full ${isOpen ? 'max-h-[900px] opacity-100' : 'max-h-0 opacity-0'}`}>
+          <div className="mt-4 pt-4 border-t border-[var(--border-light)] w-full">
+            <ul className="space-y-3 w-full">
+              {details.map((detail) => (
+                <li key={`${title}-${detail}`} className="flex items-start gap-3 text-[var(--text-muted)] font-light leading-relaxed">
+                  <div className="w-1 h-1 rounded-full bg-[var(--text-disabled)] mt-2 flex-shrink-0"></div>
+                  <span className="text-[13px] flex-1">{detail}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
 // ============================================================================
 // 主应用组件 (Main App Component)
 // ============================================================================
@@ -555,6 +646,7 @@ export default function App() {
   
   // 复制剪贴板状态管理
   const [copiedItem, setCopiedItem] = useState(null);
+  const [openDocMenuId, setOpenDocMenuId] = useState(null);
 
   const t = translations[lang];
 
@@ -572,6 +664,26 @@ export default function App() {
       void error;
     }
   }, [isDark, lang]);
+
+  useEffect(() => {
+    const closeMenuOnOutsideClick = (event) => {
+      if (!(event.target instanceof Element)) return;
+      if (!event.target.closest('[data-doc-menu-root]')) {
+        setOpenDocMenuId(null);
+      }
+    };
+    const closeMenuOnEsc = (event) => {
+      if (event.key === 'Escape') {
+        setOpenDocMenuId(null);
+      }
+    };
+    document.addEventListener('mousedown', closeMenuOnOutsideClick);
+    document.addEventListener('keydown', closeMenuOnEsc);
+    return () => {
+      document.removeEventListener('mousedown', closeMenuOnOutsideClick);
+      document.removeEventListener('keydown', closeMenuOnEsc);
+    };
+  }, []);
 
   // 实现通用的点击复制文本功能，兼容 iframe 内部限制
   const handleCopy = (text, type) => {
@@ -615,7 +727,20 @@ export default function App() {
       icon: <Activity className="w-4 h-4 text-[var(--text-main)]" />,
       description: t.portfolio.p1_desc, tags: t.portfolio.p1_tags,
       links: [
-        { text: t.portfolio.p1_btn1, url: 'https://bjpl8hf23hgg.jp.larksuite.com/docx/XLfideuKAoksQTx7oFojM1BYps7', type: 'doc' },
+        { 
+          text: t.portfolio.p1_btn1, 
+          type: 'doc-menu',
+          menuItems: [
+            {
+              text: lang === 'zh' ? '用户研究（PDF）' : 'User Research (PDF)',
+              url: encodeURI('./NutriCALM 用户研究与需求分析报告.pdf')
+            },
+            {
+              text: lang === 'zh' ? 'PRD 文档（PDF）' : 'PRD Document (PDF)',
+              url: encodeURI('./NutriCALM B2B2C健康系统PRD文档 .pdf')
+            }
+          ]
+        },
         { text: t.portfolio.p1_btn2, url: 'https://hannahzh20.github.io/Nutridemo/', type: 'demo' }
       ],
       image: { src: 'nutri.png', alt: 'NutriCALM' }
@@ -625,12 +750,12 @@ export default function App() {
       icon: <Users className="w-4 h-4 text-[var(--text-main)]" />,
       description: t.portfolio.p2_desc, tags: t.portfolio.p2_tags,
       links: [
-        { text: t.portfolio.p2_btn1, url: 'https://bjpl8hf23hgg.jp.larksuite.com/wiki/TbkxwwGNkiDUFjkcppRj3JZFpBg?from=from_copylink', type: 'doc' },
+        { text: t.portfolio.p2_btn1, url: encodeURI('./ProDAIS - 详细功能需求文档 (PRD) .pdf'), type: 'doc' },
         { text: t.portfolio.p2_btn2, url: 'https://hannahzh20.github.io/ProDAIS-demo/', type: 'demo' }
       ],
       image: { src: 'prodais.png', alt: 'ProDAIS' }
     }
-  ], [t]);
+  ], [t, lang]);
 
   return (
     <div className="min-h-screen selection:bg-[var(--text-main)] selection:text-[var(--bg-section-white)] antialiased flex flex-col items-center relative">
@@ -644,7 +769,7 @@ export default function App() {
             {navLinks.map((link) => (<a key={link.name} href={link.href} className="focus-ring px-3.5 py-1.5 rounded-full text-[12px] font-medium text-[var(--text-muted)] hover:text-[var(--text-main)] hover:bg-[var(--bg-section-gray)] transition-all">{link.name}</a>))}
           </nav>
           <div className="flex items-center gap-1.5">
-            <button type="button" aria-label={lang === 'zh' ? 'Switch to English' : '切换为中文'} onClick={() => setLang(lang === 'zh' ? 'en' : 'zh')} className="focus-ring flex items-center justify-center w-7 h-7 rounded-full hover:bg-[var(--bg-section-gray)] transition-colors text-[var(--text-muted)] hover:text-[var(--text-main)]"><Languages size={14} /></button>
+            <button type="button" aria-label={lang === 'zh' ? 'Switch to English' : '切换为中文'} onClick={() => { setOpenDocMenuId(null); setLang(lang === 'zh' ? 'en' : 'zh'); }} className="focus-ring flex items-center justify-center w-7 h-7 rounded-full hover:bg-[var(--bg-section-gray)] transition-colors text-[var(--text-muted)] hover:text-[var(--text-main)]"><Languages size={14} /></button>
             <button type="button" aria-label={isDark ? '切换到浅色模式' : '切换到深色模式'} onClick={() => setIsDark(!isDark)} className="focus-ring flex items-center justify-center w-7 h-7 rounded-full hover:bg-[var(--bg-section-gray)] transition-colors text-[var(--text-muted)] hover:text-[var(--text-main)]">{isDark ? <Sun size={14} /> : <Moon size={14} />}</button>
           </div>
         </div>
@@ -804,6 +929,41 @@ export default function App() {
                         {project.links.map((link) => {
                           const isPrimary = link.type === 'demo';
                           const isDoc = link.type === 'doc';
+                          const isDocMenu = link.type === 'doc-menu';
+                          const menuId = `${project.id}-${link.type}`;
+                          if (isDocMenu) {
+                            return (
+                              <div key={menuId} className="relative" data-doc-menu-root>
+                                <button
+                                  type="button"
+                                  onClick={() => setOpenDocMenuId(prev => (prev === menuId ? null : menuId))}
+                                  className="btn-glow !py-2 !px-3"
+                                >
+                                  <FileText size={13} className="opacity-80 flex-shrink-0" />
+                                  <span className="tracking-wide truncate text-[11px]">{link.text}</span>
+                                  <ChevronDown size={12} strokeWidth={2} className={`opacity-70 ml-auto flex-shrink-0 transition-transform ${openDocMenuId === menuId ? 'rotate-180' : ''}`} />
+                                </button>
+                                {openDocMenuId === menuId && (
+                                  <div className="absolute left-0 right-0 bottom-[calc(100%+0.5rem)] z-30 rounded-xl border border-[var(--border-line)] bg-[var(--bg-card)] shadow-[var(--shadow-card)] p-1.5">
+                                    {link.menuItems.map((item) => (
+                                      <a
+                                        key={`${menuId}-${item.text}`}
+                                        href={item.url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        onClick={() => setOpenDocMenuId(null)}
+                                        className="focus-ring flex items-center gap-2 rounded-lg px-2.5 py-2 text-[11px] font-medium text-[var(--text-main)] hover:bg-[var(--bg-section-gray)] transition-colors"
+                                      >
+                                        <FileText size={12} className="opacity-70 flex-shrink-0" />
+                                        <span className="tracking-wide truncate">{item.text}</span>
+                                        <ArrowUpRight size={11} strokeWidth={2} className="opacity-60 ml-auto flex-shrink-0" />
+                                      </a>
+                                    ))}
+                                  </div>
+                                )}
+                              </div>
+                            );
+                          }
                           return (
                             <a key={`${project.id}-${link.type}`} href={link.url} target="_blank" rel="noopener noreferrer" className={`btn-glow ${isPrimary ? 'primary' : ''} !py-2 !px-3`}>
                               {isDoc ? <FileText size={13} className="opacity-80 flex-shrink-0" /> : <Monitor size={13} className="opacity-80 flex-shrink-0" />}
@@ -876,8 +1036,9 @@ export default function App() {
                 </div>
                 <div className="w-full">
                   <TimelineItem time="2025.12 - Present" title={t.resume.exp1_title} subtitle={t.resume.exp1_sub} defaultOpen={true} details={t.resume.exp1_details} />
-                  <TimelineItem time="2025.08 - 2025.11" title={t.resume.exp2_title} subtitle={t.resume.exp2_sub} details={t.resume.exp2_details} />
-                  <TimelineItem time="2022.11 - 2023.03" title={t.resume.exp3_title} subtitle={t.resume.exp3_sub} isLast={true} details={t.resume.exp3_details} />
+                  <TimelineItem time="2025.03 - 2025.12" title={t.resume.exp2_title} subtitle={t.resume.exp2_sub} details={t.resume.exp2_details} />
+                  <TimelineItem time="2023.01 - 2023.10" title={t.resume.exp3_title} subtitle={t.resume.exp3_sub} details={t.resume.exp3_details} />
+                  <TimelineItem time="2022.03 - 2022.07" title={t.resume.exp4_title} subtitle={t.resume.exp4_sub} isLast={true} details={t.resume.exp4_details} />
                 </div>
               </div>
             </FadeIn>
@@ -890,20 +1051,21 @@ export default function App() {
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
                   <FadeIn delay={150} className="w-full h-full">
-                    <div className="p-6 rounded-xl border border-[var(--border-line)] bg-[var(--bg-section-gray)] hover:bg-[var(--bg-section-white)] transition-colors flex flex-col h-full w-full">
-                      <div className="font-mono text-[10px] text-[var(--text-muted)] mb-3 tracking-widest uppercase">AI Education</div>
-                      <h4 className="text-[14px] font-bold text-[var(--text-main)] mb-1 tracking-tight">{t.resume.proj1_title}</h4>
-                      <p className="text-[12px] font-medium text-[var(--accent)] mb-4">{t.resume.proj1_sub}</p>
-                      <p className="text-[13px] text-[var(--text-muted)] leading-relaxed font-light mt-auto pt-4 border-t border-[var(--border-light)]">{t.resume.proj1_desc}</p>
-                    </div>
+                    <ResumeProjectCard
+                      tag="AI Education"
+                      title={t.resume.proj1_title}
+                      subtitle={t.resume.proj1_sub}
+                      description={t.resume.proj1_desc}
+                      defaultOpen={true}
+                    />
                   </FadeIn>
                   <FadeIn delay={250} className="w-full h-full">
-                    <div className="p-6 rounded-xl border border-[var(--border-line)] bg-[var(--bg-section-gray)] hover:bg-[var(--bg-section-white)] transition-colors flex flex-col h-full w-full">
-                      <div className="font-mono text-[10px] text-[var(--text-muted)] mb-3 tracking-widest uppercase">Data Product</div>
-                      <h4 className="text-[14px] font-bold text-[var(--text-main)] mb-1 tracking-tight">{t.resume.proj2_title}</h4>
-                      <p className="text-[12px] font-medium text-[var(--accent)] mb-4">{t.resume.proj2_sub}</p>
-                      <p className="text-[13px] text-[var(--text-muted)] leading-relaxed font-light mt-auto pt-4 border-t border-[var(--border-light)]">{t.resume.proj2_desc}</p>
-                    </div>
+                    <ResumeProjectCard
+                      tag="Data Product"
+                      title={t.resume.proj2_title}
+                      subtitle={t.resume.proj2_sub}
+                      description={t.resume.proj2_desc}
+                    />
                   </FadeIn>
                 </div>
               </div>
